@@ -2,10 +2,14 @@ package it.univpm.shopgenius.services;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import it.univpm.shopgenius.model.entities.User;
 
 public interface UserService {
 
+	public UserDetails loadUserByUsername(String email);
+	
     public List <User> getUsers();
 
     public void saveUser(User user);
@@ -16,7 +20,7 @@ public interface UserService {
 
 	User findById(String email);
 
-	User create(String email, String password);
+	public User create(String first_name, String last_name, String email, String password, boolean isEnabled);
 
 	User update(User user);
 

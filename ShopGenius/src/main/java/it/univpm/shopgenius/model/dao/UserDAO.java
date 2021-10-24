@@ -18,7 +18,7 @@ public interface UserDAO {
 
 	User findUserByUsername(String email);
 
-	User create(String email, String password);
+	User create(String first_name, String last_name, String email, String password, boolean isEnabled);
 
 	User update(User user);
 
@@ -27,4 +27,6 @@ public interface UserDAO {
 	void setPasswordEncoder(PasswordEncoder passwordEncoder);
 
 	PasswordEncoder getpasswordEncoder();
+
+	User findUserByEmail(String email);
 }

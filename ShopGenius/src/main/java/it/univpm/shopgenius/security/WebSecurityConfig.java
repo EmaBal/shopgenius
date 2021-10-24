@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import it.univpm.shopgenius.services.UserDetailsServiceImpl;
+import it.univpm.shopgenius.services.UserServiceImpl;
 
 @Configuration
 //@ComponentScan(basePackages= {"it.univpm.shopgenius.security"})
@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	public UserDetailsService userDetailsService() {
-		return new UserDetailsServiceImpl();
+		return new UserServiceImpl();
 	};
 	
 	/**
@@ -65,10 +65,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			antMatchers("/user/showForm").permitAll().
 			antMatchers("/user/saveUser").permitAll().
 			antMatchers("/login").permitAll().
+			antMatchers("/home").permitAll().
+			antMatchers("/searchProduct*").permitAll().
 			antMatchers("/").permitAll().
-			antMatchers("/instruments/**").hasAnyRole("ADMIN").
-			antMatchers("/**").hasAnyRole("USER").
-				and().formLogin().loginPage("/login").defaultSuccessUrl("/")
+			antMatchers("/**").hasAnyRole("admin").
+				and().formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/")
 					.failureUrl("/login?error=true").permitAll().
 				and().logout().logoutSuccessUrl("/") // NB se commentiamo
 														// questa riga,

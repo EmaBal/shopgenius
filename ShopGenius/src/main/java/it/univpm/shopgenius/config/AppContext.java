@@ -13,7 +13,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -64,6 +67,7 @@ public class AppContext {
 	    return new BCryptPasswordEncoder();
 	}
 */
+	 
 	@Bean
 	protected Properties hibernateProperties() {
 		Properties hibernateProp = new Properties();
@@ -80,9 +84,11 @@ public class AppContext {
 //	    hibernateProp.put("hibernate.hbm2ddl.auto", "create");
 		// hibernateProp.put("javax.persistence.schema-generation.database.action",
 		// "create"); // importante, altrimenti si aspetta il DB gia` "strutturato"
-		hibernateProp.put("javax.persistence.schema-generation.database.action", "none"); // importante, altrimenti si
+		hibernateProp.put("javax.persistence.schema-generation.database.action", "update"); // importante, altrimenti si
 																							// aspetta il DB gia`
 																							// "strutturato"
+//		hibernateProp.put("javax.persistence.sql-load-script-source", "/data.sql");
+//		hibernateProp.put("hibernate.hbm2ddl.import_files", "/data.sql");
 		return hibernateProp;
 	}
 
