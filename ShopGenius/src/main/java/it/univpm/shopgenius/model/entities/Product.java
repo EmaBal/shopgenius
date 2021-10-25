@@ -66,7 +66,7 @@ public class Product {
 		this.quantity = quantity;
 	}
 
-	public String getLocation_detail() {
+	public String getLocationDetail() {
 		return locationDetail;
 	}
 

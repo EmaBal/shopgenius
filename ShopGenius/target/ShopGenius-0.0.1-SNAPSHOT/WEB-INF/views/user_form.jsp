@@ -16,8 +16,7 @@
 <body>
  <div class="container">
   <div class="col-md-offset-2 col-md-7">
-   <h2 class="text-center">Spring MVC 5 + Hibernate 5 + JSP + MySQL
-    Example</h2>
+   <h2 class="text-center">Register</h2>
    <div class="panel panel-info">
     <div class="panel-heading">
      <div class="panel-title">Add User</div>

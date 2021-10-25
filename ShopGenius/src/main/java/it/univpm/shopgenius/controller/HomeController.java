@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,57 +40,35 @@ public class HomeController {
 				break;
 			}
 		}
-		
-        String errorMessage = null;
-        if(error != null) {
-        	errorMessage = "Prodotto non esistente";
-        }
-        
-        model.addAttribute("errorMessage", errorMessage);
 		model.addAttribute("username", currentPrincipalName);
-		
 		return "home";
 	}
 	
-//	@GetMapping("/")
-//    public String homePage(@RequestParam(value = "error", required = false) String error,
-//                            Model model) {
-//        String errorMessage = null;
-//        if(error != null) {
-//        	errorMessage = "Prodotto non esistente";
-//        }
-//        
-//        model.addAttribute("errorMessage", errorMessage);
-//        return "home";
-//    }
-	
 //	@GetMapping("/searchProduct")
-//    public String searchProduct(@RequestParam("productName") String productName, Model model) {
+//    public String searchProduct(@RequestParam Map<String,String> requestParams, Model model) {
+//		String productName=requestParams.get("productName");
+//		String error = requestParams.get("error");
 //		try {
 //			Product product = productService.getProductByName(productName);
 //	        model.addAttribute("productName", productName);
 //	        return "product";
 //		} catch (Exception e) {
-//			return "home";
+//	        model.addAttribute("error", "Prodotto non esistente");
+//	        return "home";
 //		}
+//    }
 	
 	@GetMapping("/searchProduct")
-    public String searchProduct(@RequestParam Map<String,String> requestParams, Model model) {
-		String productName=requestParams.get("productName");
-		String error = requestParams.get("error");
+    public String searchProduct(@RequestParam("productName") String productName, @RequestParam(value = "error", required = false) String error, Model model) {
+//		String productName=requestParams.get("productName");
+//		String error = requestParams.get("error");
 		try {
 			Product product = productService.getProductByName(productName);
 	        model.addAttribute("productName", productName);
-	        return "product";
+	        return "redirect:/product";
 		} catch (Exception e) {
-//			String errorMessage = null;
-//	        if(error != null) {
-//	        	errorMessage = "Prodotto non esistente";
-//	        }
-//	        
-//	        model.addAttribute("errorMessage", errorMessage);
-			return "redirect:/";
+	        model.addAttribute("error", "Prodotto non esistente");
+	        return "home";
 		}
     }
-//    }
 }

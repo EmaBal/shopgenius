@@ -54,4 +54,10 @@ public class ProductDAOImpl extends DefaultDao implements ProductDAO {
         Session currentSession = this.getSession();
         currentSession.saveOrUpdate(product);
 	}
+	
+    @Override
+    public void saveProduct(Product product) {
+        Session currentSession = this.getSession();
+        currentSession.saveOrUpdate(product);
+    }
 }

@@ -62,37 +62,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests().
+			antMatchers("/addProduct").hasAnyAuthority("admin").
 			antMatchers("/user/showForm").permitAll().
 			antMatchers("/user/saveUser").permitAll().
 			antMatchers("/login").permitAll().
 			antMatchers("/home").permitAll().
 			antMatchers("/searchProduct*").permitAll().
+			antMatchers("/product*").permitAll().
 			antMatchers("/").permitAll().
-			antMatchers("/**").hasAnyRole("admin").
 				and().formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/")
 					.failureUrl("/login?error=true").permitAll().
-				and().logout().logoutSuccessUrl("/") // NB se commentiamo
-														// questa riga,
-														// viene richiamata
-														// /login?logout
+				and().logout().logoutSuccessUrl("/")
 					.invalidateHttpSession(true).permitAll().
 			and().csrf().disable();
-		
-//		http.authorizeRequests().antMatchers("/login").permitAll();
-//		http.authorizeRequests().antMatchers("/").permitAll();
-//		http.authorizeRequests().antMatchers("/instruments/**").hasAnyRole("ADMIN");
-//		http.authorizeRequests().antMatchers("/**").hasAnyRole("USER");
-		
-//		http.formLogin().loginPage("/login");
-//		http.formLogin().defaultSuccessUrl("/");
-//		http.formLogin().failureUrl("/login?error=true");
-//		http.formLogin().permitAll();
-		
-//		http.logout().logoutSuccessUrl("/");
-//		http.logout().invalidateHttpSession(true);
-//		http.logout().permitAll();
-		
-//		http.csrf().disable();
+	
 
 	}
 

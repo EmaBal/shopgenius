@@ -1,0 +1,78 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add product</title>
+<link href="<c:url value="/WEB-INF/css/bootstrap.min.css" />"
+ rel="stylesheet">
+<script src="<c:url value="/WEB-INF/js/jquery-1.11.1.min.js" />"></script>
+<script src="<c:url value="/WEB-INF/js/bootstrap.min.js" />"></script>
+
+</head>
+<body>
+ <div class="container">
+  <div class="col-md-offset-2 col-md-7">
+   <h2 class="text-center">Add product</h2>
+   <div class="panel panel-info">
+    <div class="panel-heading">
+     <div class="panel-title">Add product</div>
+    </div>
+    <div class="panel-body">
+     <form:form action="saveProduct" cssClass="form-horizontal"
+      method="post" modelAttribute="product">
+
+      <!-- need to associate this data with customer id -->
+      <form:hidden path="id" />
+
+      <div class="form-group">
+       <label for="name" class="col-md-3 control-label">Product Name</label>
+       <div class="col-md-9">
+        <form:input path="name" cssClass="form-control" />
+       </div>
+      </div>
+      <div class="form-group">
+       <label for="price" class="col-md-3 control-label">Price</label>
+       <div class="col-md-9">
+        <form:input path="price" cssClass="form-control" />
+       </div>
+      </div>
+
+      <div class="form-group">
+       <label for="quantity" class="col-md-3 control-label">Quantity</label>
+       <div class="col-md-9">
+        <form:input type="number" path="quantity" cssClass="form-control" />
+       </div>
+      </div>
+      
+      <div class="form-group">
+       <label for="type" class="col-md-3 control-label">Product Type</label>
+       <div class="col-md-9">
+        <form:input path="type" cssClass="form-control" />
+       </div>
+      </div>
+      
+       <div class="form-group">
+       <label for="locationDetail" class="col-md-3 control-label">Location detail</label>
+       <div class="col-md-9">
+        <form:input path="locationDetail" cssClass="form-control" />
+       </div>
+      </div>
+
+      <div class="form-group">
+       <!-- Button -->
+       <div class="col-md-offset-3 col-md-9">
+        <form:button cssClass="btn btn-primary">Submit</form:button>
+       </div>
+      </div>
+
+     </form:form>
+    </div>
+   </div>
+  </div>
+ </div>
+</body>
+</html>
