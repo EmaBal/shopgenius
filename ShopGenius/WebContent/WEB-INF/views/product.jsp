@@ -18,10 +18,12 @@
    <hr />
    <div class="panel panel-info">
     <div class="panel-body">
+    <form action="addFav">
      <table class="table table-striped table-bordered">
       <tr>
        <td>Name:</td>
-       <td>${product.name}</td>
+       <td><form name="productName">${product.name}</form></td>
+       
       </tr>
       <tr>
        <td>Price:</td>
@@ -41,9 +43,12 @@
       </tr>
 
      </table>
-
+<!--      <input name="productName"></input> -->
+	<input type="submit" value="Add to Favorites" /><br/>
+	</form>
     </div>
    </div>
+   
   </div>
 
  </div>

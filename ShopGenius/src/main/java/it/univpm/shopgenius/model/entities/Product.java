@@ -1,13 +1,21 @@
 package it.univpm.shopgenius.model.entities;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "products")
@@ -58,7 +66,7 @@ public class Product {
 		this.price = price;
 	}
 
-	public long getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
@@ -81,6 +89,29 @@ public class Product {
 	
 	public void setProductType(ProductType productType) {
 		this.productType = productType;
+	}
+	
+	@ManyToMany (fetch = FetchType.EAGER,         cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        },mappedBy = "products")
+	Set<User> users;
+	
+	public Set<User> getUsers() {
+		return this.users;
+	}
+	
+	public void addUser(User u) {
+		this.users.add(u);
+		u.getProducts().add(this);
+	}
+	
+	public void removeUser(User u) {
+		this.users.remove(u);
+		u.getProducts().remove(this);
 	}
 
 }

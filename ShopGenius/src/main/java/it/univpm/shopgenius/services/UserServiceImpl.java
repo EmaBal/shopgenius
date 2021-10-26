@@ -130,4 +130,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public User update(User user) {
 		return this.userDAO.update(user);
 	}
+	
+	@Override
+	public User findUserByEmail(String email) {
+		return userDAO.findUserByEmail(email);
+	}
 }

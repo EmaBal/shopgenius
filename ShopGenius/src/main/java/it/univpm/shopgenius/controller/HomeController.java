@@ -26,7 +26,7 @@ public class HomeController {
 	@Autowired
 	ProductService productService;
 	
-	@GetMapping("/")
+	@GetMapping(value={"/","home"})
 	public String showHome(@RequestParam(value = "error", required = false) String error, Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
@@ -40,6 +40,7 @@ public class HomeController {
 				break;
 			}
 		}
+		model.addAttribute("error", error);
 		model.addAttribute("username", currentPrincipalName);
 		return "home";
 	}
@@ -57,18 +58,4 @@ public class HomeController {
 //	        return "home";
 //		}
 //    }
-	
-	@GetMapping("/searchProduct")
-    public String searchProduct(@RequestParam("productName") String productName, @RequestParam(value = "error", required = false) String error, Model model) {
-//		String productName=requestParams.get("productName");
-//		String error = requestParams.get("error");
-		try {
-			Product product = productService.getProductByName(productName);
-	        model.addAttribute("productName", productName);
-	        return "redirect:/product";
-		} catch (Exception e) {
-	        model.addAttribute("error", "Prodotto non esistente");
-	        return "home";
-		}
-    }
 }

@@ -28,5 +28,5 @@ public interface UserDAO {
 
 	PasswordEncoder getpasswordEncoder();
 
-	User findUserByEmail(String email);
+	public User findUserByEmail(String email);
 }

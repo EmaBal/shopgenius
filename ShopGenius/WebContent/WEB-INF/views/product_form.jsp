@@ -2,6 +2,7 @@
  pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib  uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,14 +19,10 @@
   <div class="col-md-offset-2 col-md-7">
    <h2 class="text-center">Add product</h2>
    <div class="panel panel-info">
-    <div class="panel-heading">
-     <div class="panel-title">Add product</div>
-    </div>
     <div class="panel-body">
      <form:form action="saveProduct" cssClass="form-horizontal"
       method="post" modelAttribute="product">
 
-      <!-- need to associate this data with customer id -->
       <form:hidden path="id" />
 
       <div class="form-group">
@@ -48,18 +45,22 @@
        </div>
       </div>
       
-      <div class="form-group">
-       <label for="type" class="col-md-3 control-label">Product Type</label>
-       <div class="col-md-9">
-        <form:input path="type" cssClass="form-control" />
-       </div>
-      </div>
-      
-       <div class="form-group">
+        <div class="form-group">
        <label for="locationDetail" class="col-md-3 control-label">Location detail</label>
        <div class="col-md-9">
         <form:input path="locationDetail" cssClass="form-control" />
        </div>
+      </div>
+      
+      <div class="form-group">
+	  	<label for="type" class="col-md-3 control-label">Product Type</label>
+	    <div class="col-md-9">
+	        <select name="typeName" id="typeName">
+				<c:forEach var="type" items="${productTypes}">
+	        		<option value="${type.typeName}"> ${type.typeName} </option>
+	        	</c:forEach>
+			</select>
+		</div>
       </div>
 
       <div class="form-group">
@@ -70,6 +71,7 @@
       </div>
 
      </form:form>
+
     </div>
    </div>
   </div>

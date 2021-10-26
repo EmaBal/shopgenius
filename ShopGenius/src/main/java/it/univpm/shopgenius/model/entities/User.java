@@ -3,8 +3,10 @@ package it.univpm.shopgenius.model.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 import it.univpm.shopgenius.model.entities.Role;
@@ -110,7 +113,27 @@ public class User {
 		this.roles = roles;
 	}
 	
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER,         cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        })
     @JoinTable(name = "fav_list", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products;
+    
+    public Set<Product> getProducts() {
+    	return this.products;
+    }
+    
+	public void addProduct(Product p) {
+		this.products.add(p);
+		p.getUsers().add(this);
+	}
+    
+	public void removeProduct(Product p) {
+		this.products.remove(p);
+		p.getUsers().remove(this);
+	}
 }

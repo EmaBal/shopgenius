@@ -18,10 +18,12 @@ public interface UserService {
 
     public void deleteUser(int id);
 
-	User findById(String email);
+	public User findById(String email);
 
 	public User create(String first_name, String last_name, String email, String password, boolean isEnabled);
 
-	User update(User user);
+	public User update(User user);
+	
+	public User findUserByEmail(String email);
 
 }

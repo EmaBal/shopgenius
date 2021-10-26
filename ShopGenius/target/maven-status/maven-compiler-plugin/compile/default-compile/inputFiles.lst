@@ -7,7 +7,9 @@ C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\cont
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\entities\ProductType.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\controller\HomeController.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\entities\Role.java
+C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\FavoriteService.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\dao\DefaultDao.java
+C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\controller\FavoriteController.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\security\AppSecurityInitializer.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\ProductServiceImpl.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\UserService.java
@@ -17,12 +19,15 @@ C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\mode
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\entities\User.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\config\WebMvcConfig.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\entities\Product.java
+C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\dao\FavoriteDAO.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\UserServiceImpl.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\controller\ProductController.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\dao\UserDAO.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\security\WebSecurityConfig.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\ProductService.java
+C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\dao\FavoriteDAOImpl.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\ProductTypeService.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\dao\ProductTypeDAOImpl.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\dao\RoleDAO.java
+C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\FavoriteServiceImpl.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\dao\ProductDAO.java

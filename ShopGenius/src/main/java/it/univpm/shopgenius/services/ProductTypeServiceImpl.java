@@ -1,5 +1,7 @@
 package it.univpm.shopgenius.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +24,18 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 		productTypeDAO.delete(productType);
 	}
 
+	@Override
+	public List<ProductType> getTypes() {
+		return productTypeDAO.getTypes();
+	}
+	
+	@Override
+	public List<String> getTypesNames() {
+		return productTypeDAO.getTypesNames();
+	}
+	
+	@Override
+	public ProductType getProductTypeFromName(String pTypeName) {
+		return productTypeDAO.getProductTypeFromName(pTypeName);
+	}
 }
