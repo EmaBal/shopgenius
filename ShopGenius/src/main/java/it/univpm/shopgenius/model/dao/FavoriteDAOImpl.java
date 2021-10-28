@@ -22,13 +22,13 @@ public class FavoriteDAOImpl extends DefaultDao implements FavoriteDAO {
 
 	@Override
 	public void add(User user, Product product) {
+		System.out.println("Passaggio per add in FavoriteDAOImpl");
 		user.addProduct(product);
 	}
 
 	@Override
 	public void delete(User user, Product product) {
-		//user.removeProduct(product);
-		product.removeUser(user);
+		user.removeProduct(product);
 	}
 
 }

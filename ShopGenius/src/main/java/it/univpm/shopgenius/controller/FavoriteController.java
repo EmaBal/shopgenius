@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.univpm.shopgenius.model.entities.Product;
@@ -19,6 +20,7 @@ import it.univpm.shopgenius.services.ProductService;
 import it.univpm.shopgenius.services.UserService;
 
 @Controller
+@RequestMapping("/favorites")
 public class FavoriteController {
 
 	@Autowired
@@ -36,7 +38,7 @@ public class FavoriteController {
 		return userService.findUserByEmail(email);
 	}
 	
-	@GetMapping("/favorites")
+	@GetMapping("")
 	public String viewFavorites(Model model) {
 		User user = getLoggedUser();
 		Set<Product> favorites = user.getProducts();
@@ -44,18 +46,20 @@ public class FavoriteController {
 		return "fav_list";
 	}
 	
-    @GetMapping("/favorites/delete")
+    @GetMapping("/delete")
     public String deleteFav(@RequestParam("productId") int id) {
     	User user = getLoggedUser();
     	favoriteService.delete(user, productService.getProductById(id));
+    	userService.update(user);
         return "redirect:/favorites";
     }
     
-	@GetMapping("/addFav")
+	@GetMapping("/add")
 	public String addFav(@RequestParam("productName") String productName, Model model) {
 		User user = getLoggedUser();
 		favoriteService.add(user, productService.getProductByName(productName));
-		model.addAttribute(productName);
-		return "product";
+		userService.update(user);
+		model.addAttribute("productName", productName);
+		return "redirect:/product";
 	}
 }

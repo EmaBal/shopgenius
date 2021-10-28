@@ -2,10 +2,12 @@ package it.univpm.shopgenius.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.univpm.shopgenius.model.dao.ProductDAO;
 import it.univpm.shopgenius.model.entities.Product;
 
+@Transactional
 @Service
 public class ProductServiceImpl implements ProductService {
 

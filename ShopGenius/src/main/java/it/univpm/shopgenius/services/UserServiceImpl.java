@@ -22,14 +22,12 @@ import it.univpm.shopgenius.model.dao.UserDAO;
 import it.univpm.shopgenius.model.entities.Role;
 import it.univpm.shopgenius.model.entities.User;
 
+@Transactional
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserDAO userDAO;
-    
-    @Autowired
-    private HttpServletRequest request;
     
     @Autowired
     private RoleDAO roleDAO;

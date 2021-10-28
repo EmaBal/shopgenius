@@ -1,5 +1,6 @@
 package it.univpm.shopgenius.model.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -98,10 +99,14 @@ public class Product {
                 CascadeType.REFRESH,
                 CascadeType.PERSIST
         },mappedBy = "products")
-	Set<User> users;
+	Set<User> users = new HashSet<User>();
 	
 	public Set<User> getUsers() {
 		return this.users;
+	}
+	
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 	
 	public void addUser(User u) {

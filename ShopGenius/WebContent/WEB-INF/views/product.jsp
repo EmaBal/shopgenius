@@ -18,11 +18,11 @@
    <hr />
    <div class="panel panel-info">
     <div class="panel-body">
-    <form action="addFav">
+    <form action="favorites/add">
      <table class="table table-striped table-bordered">
       <tr>
        <td>Name:</td>
-       <td><form name="productName">${product.name}</form></td>
+       <td>${product.name}</td>
        
       </tr>
       <tr>
@@ -43,7 +43,7 @@
       </tr>
 
      </table>
-<!--      <input name="productName"></input> -->
+     <input type="hidden" name="productName" value="${product.name}"></input>
 	<input type="submit" value="Add to Favorites" /><br/>
 	</form>
     </div>

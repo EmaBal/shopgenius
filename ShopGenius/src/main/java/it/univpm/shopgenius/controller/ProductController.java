@@ -1,5 +1,7 @@
 package it.univpm.shopgenius.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import it.univpm.shopgenius.model.entities.Product;
 import it.univpm.shopgenius.model.entities.ProductType;
@@ -24,7 +27,7 @@ public class ProductController {
     
     @Autowired
     private ProductTypeService productTypeService;
-    
+
 	@PostMapping("/searchProduct")
     public String searchProduct(@RequestParam("productName") String productName, @RequestParam(value = "error", required = false) String error, Model model) {
 		try {
@@ -37,7 +40,7 @@ public class ProductController {
     }
 	
     @GetMapping("/product")
-    public String showProduct(@RequestParam String productName, Model model) {
+    public String showProduct(@RequestParam("productName") String productName, Model model) {
     	Product product = productService.getProductByName(productName);
     	ProductType productType = product.getProductType();
     	model.addAttribute(product);

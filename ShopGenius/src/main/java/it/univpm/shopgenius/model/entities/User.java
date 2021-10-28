@@ -121,19 +121,22 @@ public class User {
                 CascadeType.PERSIST
         })
     @JoinTable(name = "fav_list", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> products;
+    private Set<Product> products = new HashSet<Product>();
     
     public Set<Product> getProducts() {
     	return this.products;
     }
     
+    public void setProducts(Set<Product> products) {
+    	this.products = products;
+    }
+    
 	public void addProduct(Product p) {
 		this.products.add(p);
-		p.getUsers().add(this);
+
 	}
     
 	public void removeProduct(Product p) {
 		this.products.remove(p);
-		p.getUsers().remove(this);
 	}
 }

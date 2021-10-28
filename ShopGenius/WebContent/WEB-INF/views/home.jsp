@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,7 @@
 		<input name="register" type="button" value="Registrati" onclick="location.href='user/showForm';"/><br/>
 	</c:otherwise>
 </c:choose>
-<form action="searchProduct" method = POST>
+<form action="searchProduct" method = "POST">
   <label for="fname">Cerca prodotto:</label>
   <input type="text" id="fname" name="productName"><br>
   <!-- <input type="submit" value="Cerca" onclick="location.href='/product';"> -->
