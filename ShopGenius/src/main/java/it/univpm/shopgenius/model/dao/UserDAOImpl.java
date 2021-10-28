@@ -100,5 +100,10 @@ public class UserDAOImpl extends DefaultDao implements UserDAO {
 	public PasswordEncoder getpasswordEncoder() {
 		return this.passwordEncoder;
 	}
+	
+	@Override
+	public void addRole(User user, Role role) {
+		user.addRole(role);
+	}
 
 }

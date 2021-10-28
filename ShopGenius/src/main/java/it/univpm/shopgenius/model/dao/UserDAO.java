@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import it.univpm.shopgenius.model.entities.Role;
 import it.univpm.shopgenius.model.entities.User;
 
 public interface UserDAO {
@@ -29,4 +30,6 @@ public interface UserDAO {
 	PasswordEncoder getpasswordEncoder();
 
 	public User findUserByEmail(String email);
+
+	public void addRole(User user, Role role);
 }

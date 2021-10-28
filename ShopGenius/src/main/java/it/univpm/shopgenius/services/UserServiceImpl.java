@@ -133,4 +133,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public User findUserByEmail(String email) {
 		return userDAO.findUserByEmail(email);
 	}
+	
+	@Override
+	public void addRole(User user, String roleName) {
+		userDAO.addRole(user, roleDAO.getRole(roleName));
+	}
 }

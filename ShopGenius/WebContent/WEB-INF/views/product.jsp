@@ -13,12 +13,13 @@
 </head>
 <body>
  <div class="container">
+ <input name="returnToHome" type="button" value="Return to Home" onclick="location.href='/ShopGenius/home';"/><br/><br/>
   <div class="col-md-offset-1 col-md-10">
    <h2>${product.name}</h2>
    <hr />
    <div class="panel panel-info">
     <div class="panel-body">
-    <form action="favorites/add">
+    
      <table class="table table-striped table-bordered">
       <tr>
        <td>Name:</td>
@@ -43,9 +44,21 @@
       </tr>
 
      </table>
-     <input type="hidden" name="productName" value="${product.name}"></input>
-	<input type="submit" value="Add to Favorites" /><br/>
-	</form>
+     
+     <c:choose>
+		<c:when test="${isProductFav eq true}">
+			<form action="favorites/delete">
+			<input type="hidden" name="productId" value="${product.id}"></input>
+				<input type="submit" value="Remove from Favorites" /><br/>
+			</form>
+		</c:when>
+		<c:otherwise>
+			<form action="favorites/add">
+			<input type="hidden" name="productName" value="${product.name}"></input>
+				<input type="submit" value="Add to Favorites" /><br/>
+			</form>
+		</c:otherwise>
+	</c:choose>
     </div>
    </div>
    

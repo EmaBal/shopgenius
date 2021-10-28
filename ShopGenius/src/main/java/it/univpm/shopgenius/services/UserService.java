@@ -26,4 +26,6 @@ public interface UserService {
 	
 	public User findUserByEmail(String email);
 
+	public void addRole(User user, String roleName);
+
 }

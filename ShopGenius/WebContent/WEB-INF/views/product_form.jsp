@@ -20,6 +20,7 @@
    
    <div class="panel panel-info">
     <div class="panel-body">
+    <input value="<--" type="button" onclick="history.go(-1);" />
      <form:form action="save" cssClass="form-horizontal"
       method="post" modelAttribute="product">
       <c:choose>
@@ -35,27 +36,27 @@
       <div class="form-group">
        <label for="name" class="col-md-3 control-label">Product Name</label>
        <div class="col-md-9">
-        <form:input path="name" cssClass="form-control" />
+        <form:input path="name" cssClass="form-control" />  <form:errors path="name" cssStyle="color: #ff0000;"/>
        </div>
       </div>
       <div class="form-group">
        <label for="price" class="col-md-3 control-label">Price</label>
        <div class="col-md-9">
-        <form:input path="price" cssClass="form-control" />
+        <form:input path="price" cssClass="form-control" />  <form:errors path="price" cssStyle="color: #ff0000;"/>
        </div>
       </div>
 
       <div class="form-group">
        <label for="quantity" class="col-md-3 control-label">Quantity</label>
        <div class="col-md-9">
-        <form:input type="number" path="quantity" cssClass="form-control" />
+        <form:input type="number" path="quantity" cssClass="form-control" />  <form:errors path="quantity" cssStyle="color: #ff0000;"/>
        </div>
       </div>
       
         <div class="form-group">
        <label for="locationDetail" class="col-md-3 control-label">Location detail</label>
        <div class="col-md-9">
-        <form:input path="locationDetail" cssClass="form-control" />
+        <form:input path="locationDetail" cssClass="form-control" />  <form:errors path="locationDetail" cssStyle="color: #ff0000;"/>
        </div>
       </div>
       

@@ -12,10 +12,12 @@
 <c:choose>
 	<c:when test="${role eq 'admin'}">
 		Benvenuto/a, ${username}<br/>
-		<input name="manageProducts" type="button" value="Manage products" onclick="location.href='product/list';"/><br/>
-		<input name="favorites" type="button" value="Visualizza Preferiti" onclick="location.href='favorites';"/><br/>
-		<input name="listUsers" type="button" value="Visualizza Utenti Registrati" onclick="location.href='user/list';"/><br/>
 		<input name="logout" type="button" value="Logout" onclick="location.href='logout';"/><br/>
+		<br/><br/>
+		<input name="manageProducts" type="button" value="Manage Products" onclick="location.href='product/list';"/><br/><br/>
+		<input name="listUsers" type="button" value="Manage Users" onclick="location.href='user/list';"/><br/><br/>
+		<input name="favorites" type="button" value="Favorites" onclick="location.href='favorites';"/><br/>
+		
 	</c:when>
 	<c:when test="${role eq 'user'}">
 		Benvenuto/a, ${username}<br/>
@@ -27,11 +29,11 @@
 		<input name="register" type="button" value="Registrati" onclick="location.href='user/showForm';"/><br/>
 	</c:otherwise>
 </c:choose>
+<br/>
 <form action="product/search" method = "POST">
-  <label for="fname">Cerca prodotto:</label>
-  <input type="text" id="fname" name="productName"><br>
-  <!-- <input type="submit" value="Cerca" onclick="location.href='/product';"> -->
-  <input type="submit" value="Cerca">
+  <label for="fname">Search product:</label><br/>
+  <input type="text" id="fname" name="productName">
+  <input type="submit" value="Search">
 </form>
 <%-- <c:if test="${not empty error}"> --%>
 	<div style="color: red; font-weight: bold; margin: 30px 0px;">${error}</div>

@@ -17,6 +17,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -28,12 +31,18 @@ public class Product {
     @Column(name = "product_id")
     private int id;
 	
+	@NotNull
+	@Size(min=1, max=30, message="Required field")
 	@Column(name = "name")
 	private String name;
 	
+	@NotNull
+	@Min(value=0, message="Required field")
 	@Column(name = "price")
 	private float price;
 	
+	@NotNull
+	@Min(value=0, message="Required field")
 	@Column(name = "quantity")
 	private int quantity;
 	
@@ -41,6 +50,8 @@ public class Product {
 	@JoinColumn(name = "product_type", nullable=false)
 	private ProductType productType;
 	
+	@NotNull
+	@Size(min=1, max=10, message="Required field")
 	@Column(name = "location_detail")
 	private String locationDetail;
 	
@@ -93,7 +104,7 @@ public class Product {
 		this.productType = productType;
 	}
 	
-	@ManyToMany (fetch = FetchType.EAGER,         cascade =
+	@ManyToMany (fetch = FetchType.LAZY,         cascade =
         {
                 CascadeType.DETACH,
                 CascadeType.MERGE,

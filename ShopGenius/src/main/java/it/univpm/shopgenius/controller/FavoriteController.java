@@ -2,6 +2,8 @@ package it.univpm.shopgenius.controller;
 
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,7 +34,7 @@ public class FavoriteController {
 	@Autowired
 	FavoriteService favoriteService;
 	
-	public User getLoggedUser() {
+	public User getCurrentUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String email = ((UserDetails)principal).getUsername();
 		return userService.findUserByEmail(email);
@@ -40,23 +42,24 @@ public class FavoriteController {
 	
 	@GetMapping("")
 	public String viewFavorites(Model model) {
-		User user = getLoggedUser();
+		User user = getCurrentUser();
 		Set<Product> favorites = user.getProducts();
 		model.addAttribute("favorites", favorites);
 		return "fav_list";
 	}
 	
     @GetMapping("/delete")
-    public String deleteFav(@RequestParam("productId") int id) {
-    	User user = getLoggedUser();
+    public String deleteFav(@RequestParam("productId") int id, HttpServletRequest request) {
+    	User user = getCurrentUser();
     	favoriteService.delete(user, productService.getProductById(id));
     	userService.update(user);
-        return "redirect:/favorites";
+        String referer = request.getHeader("Referer");
+        return "redirect:"+ referer;
     }
     
 	@GetMapping("/add")
 	public String addFav(@RequestParam("productName") String productName, Model model) {
-		User user = getLoggedUser();
+		User user = getCurrentUser();
 		favoriteService.add(user, productService.getProductByName(productName));
 		userService.update(user);
 		model.addAttribute("productName", productName);

@@ -3,6 +3,8 @@ package it.univpm.shopgenius.controller;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -45,17 +47,8 @@ public class HomeController {
 		return "home";
 	}
 	
-//	@GetMapping("/searchProduct")
-//    public String searchProduct(@RequestParam Map<String,String> requestParams, Model model) {
-//		String productName=requestParams.get("productName");
-//		String error = requestParams.get("error");
-//		try {
-//			Product product = productService.getProductByName(productName);
-//	        model.addAttribute("productName", productName);
-//	        return "product";
-//		} catch (Exception e) {
-//	        model.addAttribute("error", "Prodotto non esistente");
-//	        return "home";
-//		}
-//    }
+//	@GetMapping("/myapp")
+//	public String tilesTest() {
+//		return "myapp";
+//	}
 }

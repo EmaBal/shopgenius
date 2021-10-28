@@ -70,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			antMatchers("/searchProduct*").permitAll().
 			antMatchers("/product").permitAll().
 			antMatchers("/").permitAll().
+			antMatchers("/user/showFormWithErrors").permitAll().
 			antMatchers("/user/list").hasAnyAuthority("admin").
 				and().formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/")
 					.failureUrl("/login?error=true").permitAll().
