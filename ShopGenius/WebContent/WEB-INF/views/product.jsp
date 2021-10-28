@@ -5,7 +5,7 @@
 <html>
 <head><%@ page isELIgnored="false" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Dettagli prodotto</title>
+<title>Product details</title>
 <link href="<c:url value="/WEB-INF/css/bootstrap.min.css" />"
  rel="stylesheet">
 <script src="<c:url value="/WEB-INF/js/jquery-1.11.1.min.js" />"></script>

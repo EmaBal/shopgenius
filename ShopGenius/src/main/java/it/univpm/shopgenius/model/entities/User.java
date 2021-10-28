@@ -1,6 +1,7 @@
 package it.univpm.shopgenius.model.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -138,5 +139,25 @@ public class User {
     
 	public void removeProduct(Product p) {
 		this.products.remove(p);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, enabled, firstName, id, lastName, password, products, roles);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(email, other.email) && enabled == other.enabled
+				&& Objects.equals(firstName, other.firstName) && id == other.id
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
+				&& Objects.equals(products, other.products) && Objects.equals(roles, other.roles);
 	}
 }

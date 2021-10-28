@@ -1,6 +1,7 @@
 package it.univpm.shopgenius.model.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -21,7 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "products")
 public class Product {
-	
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
@@ -117,6 +118,31 @@ public class Product {
 	public void removeUser(User u) {
 		this.users.remove(u);
 		u.getProducts().remove(this);
+	}
+	
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", quantity=" + quantity + ", productType="
+				+ productType + ", locationDetail=" + locationDetail + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, locationDetail, name, price, productType, quantity);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		return id == other.id && Objects.equals(locationDetail, other.locationDetail)
+				&& Objects.equals(name, other.name) && Float.floatToIntBits(price) == Float.floatToIntBits(other.price)
+				&& Objects.equals(productType, other.productType) && quantity == other.quantity;
 	}
 
 }

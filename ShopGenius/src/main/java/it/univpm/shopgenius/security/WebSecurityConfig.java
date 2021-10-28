@@ -62,14 +62,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests().
-			antMatchers("/addProduct").hasAnyAuthority("admin").
+			antMatchers("/*").hasAnyAuthority("admin").
 			antMatchers("/user/showForm").permitAll().
 			antMatchers("/user/saveUser").permitAll().
 			antMatchers("/login").permitAll().
 			antMatchers("/home").permitAll().
 			antMatchers("/searchProduct*").permitAll().
-			antMatchers("/product*").permitAll().
+			antMatchers("/product").permitAll().
 			antMatchers("/").permitAll().
+			antMatchers("/user/list").hasAnyAuthority("admin").
 				and().formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/")
 					.failureUrl("/login?error=true").permitAll().
 				and().logout().logoutSuccessUrl("/")

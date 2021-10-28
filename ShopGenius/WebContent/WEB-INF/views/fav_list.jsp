@@ -27,7 +27,7 @@
 	    </c:url>
 	    <a href="${viewDetails}">${favorite.name}</a>
  	    | <a href="${deleteFav}"
-         onclick="if (!(confirm('Are you sure you want to delete this favorite?'))) return false">Delete</a>
+         onclick="if (!(confirm('Are you sure you want to delete this favorite?'))) return false">Delete</a><br/><br/>
 	 </c:forEach>
     </div>
    </div>

@@ -1,6 +1,7 @@
 package it.univpm.shopgenius.model.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -46,5 +47,27 @@ public class ProductType {
 	
 	public Set<Product> getProducts() {
 		return this.products;
+	}
+	
+	@Override
+	public String toString() {
+		return "ProductType [id=" + id + ", typeName=" + typeName + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, typeName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductType other = (ProductType) obj;
+		return id == other.id && Objects.equals(typeName, other.typeName);
 	}
 }

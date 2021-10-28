@@ -17,12 +17,19 @@
 <body>
  <div class="container">
   <div class="col-md-offset-2 col-md-7">
-   <h2 class="text-center">Add product</h2>
+   
    <div class="panel panel-info">
     <div class="panel-body">
-     <form:form action="saveProduct" cssClass="form-horizontal"
+     <form:form action="save" cssClass="form-horizontal"
       method="post" modelAttribute="product">
-
+      <c:choose>
+	      <c:when test="${empty product.name}">
+	      	<h2 class="text-center">Add product</h2>
+	      </c:when>
+	      <c:otherwise>
+	      	<h2 class="text-center">Update product</h2>
+	      </c:otherwise>
+      </c:choose>
       <form:hidden path="id" />
 
       <div class="form-group">
@@ -57,7 +64,21 @@
 	    <div class="col-md-9">
 	        <select name="typeName" id="typeName">
 				<c:forEach var="type" items="${productTypes}">
-	        		<option value="${type.typeName}"> ${type.typeName} </option>
+				<c:choose>
+	      			<c:when test="${not empty product.productType.typeName}">
+						<c:choose>
+							<c:when test="${type.typeName eq product.productType.typeName}">
+								<option selected value="${type.typeName}"> ${type.typeName} </option>
+							</c:when>
+							<c:otherwise>
+								<option value="${type.typeName}"> ${type.typeName} </option>
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:otherwise>
+						<option value="${type.typeName}"> ${type.typeName} </option>
+					</c:otherwise>
+				</c:choose>
 	        	</c:forEach>
 			</select>
 		</div>

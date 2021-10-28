@@ -1,5 +1,7 @@
 package it.univpm.shopgenius.model.dao;
 
+import java.util.List;
+
 import it.univpm.shopgenius.model.entities.Product;
 
 public interface ProductDAO {
@@ -15,4 +17,6 @@ public interface ProductDAO {
 	public void update(Product product);
 
 	public void saveProduct(Product product);
+
+	public List<Product> getProducts();
 }

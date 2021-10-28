@@ -1,5 +1,7 @@
 package it.univpm.shopgenius.model.dao;
 
+import java.util.List;
+
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -59,5 +61,16 @@ public class ProductDAOImpl extends DefaultDao implements ProductDAO {
     public void saveProduct(Product product) {
         Session currentSession = this.getSession();
         currentSession.saveOrUpdate(product);
+    }
+    
+    @Override
+    public List<Product> getProducts() {
+        Session session = this.getSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery <Product> cq = cb.createQuery(Product.class);
+        Root <Product> root = cq.from(Product.class);
+        cq.select(root);
+        Query query = session.createQuery(cq);
+        return query.getResultList();
     }
 }
