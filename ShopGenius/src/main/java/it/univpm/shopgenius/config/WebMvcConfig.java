@@ -12,6 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
+import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 
 
 @Configuration
@@ -21,6 +22,13 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 })
 public class WebMvcConfig implements WebMvcConfigurer {
 
+	@Bean
+	public UrlRewriteFilter getUrlRewriteFilter() {
+	    System.out.println("Calling Bean URL Rewrite Filter");
+	    UrlRewriteFilter urlRewriteFilter = new UrlRewriteFilter();
+	    return urlRewriteFilter;
+	}
+	
 	@Bean
 	public String appName() {
 		return "Shop Genius";
@@ -34,6 +42,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
         resolver.setSuffix(".jsp");
         return resolver;
     }
+    
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+      registry
+          .addResourceHandler("/resources/**").addResourceLocations("classpath:/img");
+  }
 
 	@Bean
 	UrlBasedViewResolver tilesViewResolver() {

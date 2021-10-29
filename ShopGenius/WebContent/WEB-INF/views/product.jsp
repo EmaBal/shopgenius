@@ -44,21 +44,22 @@
       </tr>
 
      </table>
-     
-     <c:choose>
-		<c:when test="${isProductFav eq true}">
-			<form action="favorites/delete">
-			<input type="hidden" name="productId" value="${product.id}"></input>
-				<input type="submit" value="Remove from Favorites" /><br/>
-			</form>
-		</c:when>
-		<c:otherwise>
-			<form action="favorites/add">
-			<input type="hidden" name="productName" value="${product.name}"></input>
-				<input type="submit" value="Add to Favorites" /><br/>
-			</form>
-		</c:otherwise>
-	</c:choose>
+     <c:if test="${role ne 'anonymous'}">
+	     <c:choose>
+			<c:when test="${isProductFav eq true}">
+				<form action="favorites/delete">
+				<input type="hidden" name="productId" value="${product.id}"></input>
+					<input type="submit" value="Remove from Favorites" /><br/>
+				</form>
+			</c:when>
+			<c:otherwise>
+				<form action="favorites/add">
+				<input type="hidden" name="productName" value="${product.name}"></input>
+					<input type="submit" value="Add to Favorites" /><br/>
+				</form>
+			</c:otherwise>
+		</c:choose>
+	</c:if>
     </div>
    </div>
    

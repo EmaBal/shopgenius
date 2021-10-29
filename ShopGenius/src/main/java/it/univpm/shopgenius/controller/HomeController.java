@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.univpm.shopgenius.model.entities.Product;
 import it.univpm.shopgenius.model.entities.User;
 import it.univpm.shopgenius.services.ProductService;
+import it.univpm.shopgenius.utils.Utilities;
 
 @Controller
 public class HomeController {
@@ -28,27 +29,34 @@ public class HomeController {
 	@Autowired
 	ProductService productService;
 	
+	private Utilities utilities = new Utilities();
+	
 	@GetMapping(value={"/","home"})
 	public String showHome(@RequestParam(value = "error", required = false) String error, Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		Collection<SimpleGrantedAuthority> auth = (Collection<SimpleGrantedAuthority>) authentication.getAuthorities();
-		for (SimpleGrantedAuthority r: auth) {
-			if (r.getAuthority().equals("admin")) {
-				model.addAttribute("role", r.getAuthority());
-				break;
-			} else if (r.getAuthority().equals("user")) {
-				model.addAttribute("role", r.getAuthority());
-				break;
-			}
-		}
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = authentication.getName();
+//		Collection<SimpleGrantedAuthority> auth = (Collection<SimpleGrantedAuthority>) authentication.getAuthorities();
+//		for (SimpleGrantedAuthority r: auth) {
+//			if (r.getAuthority().equals("admin")) {
+//				model.addAttribute("role", r.getAuthority());
+//				break;
+//			} else if (r.getAuthority().equals("user")) {
+//				model.addAttribute("role", r.getAuthority());
+//				break;
+//			}
+//		}
+		String currenUserRole = utilities.getCurrentUserMajorRole();
+		if (currenUserRole.equals("admin"))
+			model.addAttribute("role","admin");
+		else if (currenUserRole.equals("user"))
+			model.addAttribute("role","user");
 		model.addAttribute("error", error);
-		model.addAttribute("username", currentPrincipalName);
+		model.addAttribute("username", utilities.getCurrentUserName());
 		return "home";
 	}
 	
-//	@GetMapping("/myapp")
-//	public String tilesTest() {
-//		return "myapp";
-//	}
+	@GetMapping("/myapp")
+	public String tilesTest() {
+		return "myapp";
+	}
 }

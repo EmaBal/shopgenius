@@ -27,6 +27,7 @@ import it.univpm.shopgenius.model.entities.User;
 import it.univpm.shopgenius.services.ProductService;
 import it.univpm.shopgenius.services.ProductTypeService;
 import it.univpm.shopgenius.services.UserService;
+import it.univpm.shopgenius.utils.Utilities;
 
 @Controller
 @RequestMapping("/product")
@@ -41,6 +42,8 @@ public class ProductController {
     @Autowired
     private UserService userService;
 
+    private Utilities utilities = new Utilities();
+    
 	@PostMapping("/search")
     public String searchProduct(@RequestParam("productName") String productName, @RequestParam(value = "error", required = false) String error, Model model) {
 		try {
@@ -55,16 +58,19 @@ public class ProductController {
 	
     @GetMapping("")
     public String showProduct(@RequestParam("productName") String productName, Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String email = ((UserDetails)principal).getUsername();
-		User user = userService.findUserByEmail(email);
-		Set<Product> products = user.getProducts();
+    	String currentUserRole = utilities.getCurrentUserMajorRole();
     	Product product = productService.getProductByName(productName);
-    	if (products.contains(product))
-    		model.addAttribute("isProductFav", true);
-    	else
-    		model.addAttribute("isProductFav", false);	
+		if (currentUserRole.equals("admin") || currentUserRole.equals("user")) {
+			String email = utilities.getCurrentUserName();
+			User user = userService.findUserByEmail(email);
+			Set<Product> products = user.getProducts();
+	    	if (products.contains(product))
+	    		model.addAttribute("isProductFav", true);
+	    	else
+	    		model.addAttribute("isProductFav", false);
+		}
     	ProductType productType = product.getProductType();
+    	model.addAttribute("role",currentUserRole);
     	model.addAttribute(product);
     	String productTypeName = productType.getTypeName();
     	model.addAttribute("productType", productTypeName);

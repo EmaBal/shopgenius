@@ -1,0 +1,14 @@
+<urlrewrite default-match-type="wildcard">
+<rule>
+    <from>/</from>
+    <to>/app/</to>
+</rule>
+<rule>
+    <from>/**</from>
+    <to>/app/$1</to>
+</rule>
+<outbound-rule>
+    <from>/app/**</from>
+    <to>/$1</to>
+</outbound-rule>
+</urlrewrite>

@@ -16,6 +16,7 @@ it\univpm\shopgenius\services\ProductService.class
 it\univpm\shopgenius\services\ProductTypeServiceImpl.class
 it\univpm\shopgenius\services\FavoriteService.class
 it\univpm\shopgenius\controller\ProductController.class
+it\univpm\shopgenius\utils\Utilities.class
 it\univpm\shopgenius\model\entities\User.class
 it\univpm\shopgenius\config\AppContext.class
 it\univpm\shopgenius\model\dao\ProductDAOImpl.class

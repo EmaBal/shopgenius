@@ -3,11 +3,11 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-  <definition name="myapp" template="/WEB-INF/layouts/layout.jsp">
+  <definition name="myapp" template="WebContent/WEB-INF/layouts/layout.jsp">
     <put-attribute name="title" value="Tiles tutorial homepage" />
-    <put-attribute name="header" value="/header.jsp" />
+    <put-attribute name="header" value="header.jsp" />
     <put-attribute name="menu" value="" />
-    <put-attribute name="body" value="/home.jsp" />
+    <put-attribute name="body" value="home.jsp" />
     <put-attribute name="footer" value="" />
   </definition>
 </tiles-definitions>
