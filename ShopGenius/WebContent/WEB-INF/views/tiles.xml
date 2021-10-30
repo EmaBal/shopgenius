@@ -1,13 +1,54 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-  <definition name="myapp" template="WebContent/WEB-INF/layouts/layout.jsp">
-    <put-attribute name="title" value="Tiles tutorial homepage" />
-    <put-attribute name="header" value="header.jsp" />
-    <put-attribute name="menu" value="" />
-    <put-attribute name="body" value="home.jsp" />
-    <put-attribute name="footer" value="" />
+
+  <definition name="tiles_home" template="/WEB-INF/layouts/layout.jsp">
+    <put-attribute name="title" value="ShopGenius" />
+    <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+  </definition>
+  
+  <definition name="tiles_product" template="/WEB-INF/layouts/layout.jsp">
+    <put-attribute name="title" value="ShopGenius - Product" />
+    <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/product.jsp" />
+  </definition>
+  
+  <definition name="tiles_login" template="/WEB-INF/layouts/layout.jsp">
+    <put-attribute name="title" value="ShopGenius - Login" />
+    <put-attribute name="header" value="/WEB-INF/views/header_login.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+  </definition>
+  
+  <definition name="tiles_register" template="/WEB-INF/layouts/layout.jsp">
+    <put-attribute name="title" value="ShopGenius - Register" />
+    <put-attribute name="header" value="/WEB-INF/views/header_register.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/user_form.jsp" />
+  </definition>
+  
+  <definition name="tiles_favorites" template="/WEB-INF/layouts/layout.jsp">
+    <put-attribute name="title" value="ShopGenius - Favorites" />
+    <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/fav_list.jsp" />
+  </definition>
+  
+  <definition name="tiles_list_products" template="/WEB-INF/layouts/layout.jsp">
+    <put-attribute name="title" value="ShopGenius - Manage Products" />
+    <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/list_products.jsp" />
+  </definition>
+  
+  <definition name="tiles_product_form" template="/WEB-INF/layouts/layout.jsp">
+    <put-attribute name="title" value="ShopGenius - Add Product" />
+    <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/product_form.jsp" />
+  </definition>
+  
+  <definition name="tiles_list_users" template="/WEB-INF/layouts/layout.jsp">
+    <put-attribute name="title" value="ShopGenius - Manage Users" />
+    <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/list_users.jsp" />
   </definition>
 </tiles-definitions>

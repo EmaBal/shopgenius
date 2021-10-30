@@ -108,24 +108,28 @@
 	    <version>3.0.5</version>  
 	</dependency>  
 	      
-	    <!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-servlet -->  
-	<dependency>  
+<!-- 	<dependency>  
 	    <groupId>org.apache.tiles</groupId>  
 	    <artifactId>tiles-servlet</artifactId>  
 	    <version>3.0.5</version>  
 	</dependency>  
-	    <!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-core -->  
 	<dependency>  
 	    <groupId>org.apache.tiles</groupId>  
 	    <artifactId>tiles-core</artifactId>  
 	    <version>3.0.5</version>  
 	</dependency>  
-	   <!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-el -->  
 	<dependency>  
 	    <groupId>org.apache.tiles</groupId>  
 	    <artifactId>tiles-el</artifactId>  
 	    <version>3.0.5</version>  
-	</dependency>
+	</dependency> -->
+	
+	<dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-extras</artifactId>
+	    <version>3.0.8</version>
+    </dependency>
+  
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter</artifactId>

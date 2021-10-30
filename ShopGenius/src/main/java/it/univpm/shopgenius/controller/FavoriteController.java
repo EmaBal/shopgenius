@@ -20,6 +20,7 @@ import it.univpm.shopgenius.model.entities.User;
 import it.univpm.shopgenius.services.FavoriteService;
 import it.univpm.shopgenius.services.ProductService;
 import it.univpm.shopgenius.services.UserService;
+import it.univpm.shopgenius.utils.Utilities;
 
 @Controller
 @RequestMapping("/favorites")
@@ -34,6 +35,8 @@ public class FavoriteController {
 	@Autowired
 	FavoriteService favoriteService;
 	
+	Utilities utilities = new Utilities();
+	
 	public User getCurrentUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String email = ((UserDetails)principal).getUsername();
@@ -45,7 +48,10 @@ public class FavoriteController {
 		User user = getCurrentUser();
 		Set<Product> favorites = user.getProducts();
 		model.addAttribute("favorites", favorites);
-		return "fav_list";
+		
+    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+    	model.addAttribute("username", utilities.getCurrentUserName());
+		return "tiles_favorites";
 	}
 	
     @GetMapping("/delete")

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.univpm.shopgenius.services.UserService;
+import it.univpm.shopgenius.utils.Utilities;
 @Controller
 public class SecurityController 
 {
@@ -15,13 +16,15 @@ public class SecurityController
 	
     @Autowired
     private UserService userService;
+    
+    private Utilities utilities = new Utilities();
 	
     @GetMapping(value = "/login")
     public String loginPage(@RequestParam(value = "error", required = false) String error,
                             Model model) {
         String errorMessage = null;
         if(error != null) {
-        	errorMessage = "Username o Password errati !!";
+        	errorMessage = "Email o password errati";
         }
         
 //        if(logout != null) {
@@ -31,7 +34,10 @@ public class SecurityController
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("appName", appName);
         
-        return "login";
+    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+    	model.addAttribute("username", utilities.getCurrentUserName());
+    	
+        return "tiles_login";
     }
   
 //    @GetMapping(value="/logout")

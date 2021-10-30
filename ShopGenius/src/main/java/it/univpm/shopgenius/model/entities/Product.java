@@ -32,17 +32,17 @@ public class Product {
     private int id;
 	
 	@NotNull
-	@Size(min=1, max=30, message="Required field")
+	@Size(min=1, max=30, message="Invalid characters number (must be between 1 and 30)")
 	@Column(name = "name")
 	private String name;
 	
 	@NotNull
-	@Min(value=0, message="Required field")
+	@Min(value=0, message="Value must be 0 or positive")
 	@Column(name = "price")
 	private float price;
 	
 	@NotNull
-	@Min(value=0, message="Required field")
+	@Min(value=0, message="Value must be 0 or positive")
 	@Column(name = "quantity")
 	private int quantity;
 	
@@ -51,7 +51,7 @@ public class Product {
 	private ProductType productType;
 	
 	@NotNull
-	@Size(min=1, max=10, message="Required field")
+	@Size(min=1, max=10, message="Invalid characters number (must be between 1 and 30)")
 	@Column(name = "location_detail")
 	private String locationDetail;
 	

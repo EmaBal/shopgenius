@@ -1,35 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
- pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+ pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head><%@ page isELIgnored="false" %>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Manage Products</title>
-<link href="<c:url value="/WEB-INF/css/bootstrap.min.css" />"
- rel="stylesheet">
-<script src="<c:url value="/WEB-INF/js/jquery-1.11.1.min.js" />"></script>
-<script src="<c:url value="/WEB-INF/js/bootstrap.min.js" />"></script>
-</head>
+
 <body>
  <div class="container">
-  <div class="col-md-offset-1 col-md-10">
+  <div class="col-md-offset-1 col-md-10"><br/>
    <h2>Manage Users</h2>
    <hr />
 
-   <input type="button" value="Add User"
-    onclick="window.location.href='showForm'; return false;"
-    class="btn btn-primary" />
+   <input type="button" value="Add User" onclick="window.location.href='showForm'; return false;" class="btn btn-primary" />
     <br/><br/>
-   <div class="panel panel-info">
-    <div class="panel-body">
-     <table class="table table-striped table-bordered">
+     <table id="sortTable" class="table table-striped table-bordered text-center">
       <tr>
-       <th>First Name</th>
-       <th>Last Name</th>
+       <th>First name</th>
+       <th>Last name</th>
        <th>Email</th>
        <th>Roles</th>
-       <th>Action</th>
+       <th colspan="2" class="mx-auto">Action</th>
       </tr>
 
       <!-- loop over and print our customers -->
@@ -49,13 +36,16 @@
         <td>${tempUser.firstName}</td>
         <td>${tempUser.lastName}</td>
         <td>${tempUser.email}</td>
-        <c:forEach var="role" items="${tempUser.getRoles()}">
-        <td>${role.getName()}</td>
-		</c:forEach>
         <td>
-         <!-- display the update link --> <a href="${updateLink}">Update</a>
-         | <a href="${deleteLink}"
-         onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">Delete</a>
+        <c:forEach var="role" items="${tempUser.getRoles()}">
+        ${role.getName()} 
+		</c:forEach>
+		</td>
+        <td>
+         <a href="${updateLink}" style="text-decoration: none">Update</a>
+        </td>
+        <td>
+         <a href="${deleteLink}" style="text-decoration: none" onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">Delete</a>
         </td>
 
        </tr>
@@ -66,8 +56,8 @@
 
     </div>
    </div>
-  </div>
-
- </div>
+   <script>
+$('#sortTable').DataTable();
+</script>
 </body>
 </html>

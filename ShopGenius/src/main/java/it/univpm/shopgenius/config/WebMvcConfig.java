@@ -23,10 +23,19 @@ import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Bean
-	public UrlRewriteFilter getUrlRewriteFilter() {
-	    System.out.println("Calling Bean URL Rewrite Filter");
-	    UrlRewriteFilter urlRewriteFilter = new UrlRewriteFilter();
-	    return urlRewriteFilter;
+	UrlBasedViewResolver tilesViewResolver() {
+		UrlBasedViewResolver tilesViewResolver = new UrlBasedViewResolver();
+		tilesViewResolver.setViewClass(TilesView.class);
+		return tilesViewResolver;
+	}
+
+	@Bean
+	TilesConfigurer tilesConfigurer() {
+		TilesConfigurer tilesConfigurer = new TilesConfigurer();
+		String[] defs = { "/WEB-INF/views/tiles.xml" };
+		tilesConfigurer.setDefinitions(defs);
+		tilesConfigurer.setCheckRefresh(true);
+		return tilesConfigurer;
 	}
 	
 	@Bean
@@ -48,21 +57,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
       registry
           .addResourceHandler("/resources/**").addResourceLocations("classpath:/img");
   }
-
-	@Bean
-	UrlBasedViewResolver tilesViewResolver() {
-		UrlBasedViewResolver tilesViewResolver = new UrlBasedViewResolver();
-		tilesViewResolver.setViewClass(TilesView.class);
-		return tilesViewResolver;
-	}
-
-	@Bean
-	TilesConfigurer tilesConfigurer() {
-		TilesConfigurer tilesConfigurer = new TilesConfigurer();
-		tilesConfigurer.setDefinitions(
-				"/WEB-INF/views/tiles.xml"
-		);
-		tilesConfigurer.setCheckRefresh(true);
-		return tilesConfigurer;
-	}
 }

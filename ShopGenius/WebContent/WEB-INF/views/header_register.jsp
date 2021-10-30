@@ -49,7 +49,7 @@
 			  </button>
 			  <ul class="dropdown-menu dropdown-menu-lg-end">
 			    <li><a class="dropdown-item" href="/ShopGenius/login">Login</a></li>
-			    <li><a class="dropdown-item" href="/ShopGenius/user/showForm">Register</a></li>
+			    <li><a class="dropdown-item disabled" href="/ShopGenius/user/showForm">Register</a></li>
 			  </ul>
 			</div>
 		</c:when>

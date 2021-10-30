@@ -63,7 +63,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests().
 			antMatchers("/").permitAll().
-			antMatchers("/myapp").permitAll().
 			antMatchers("/img").permitAll().
 			antMatchers("/img/*").permitAll().
 			antMatchers("/user/showForm").permitAll().
@@ -71,12 +70,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			antMatchers("/login").permitAll().
 			antMatchers("/home").permitAll().
 			antMatchers("/searchProduct*").permitAll().
+			antMatchers("/product/list").hasAnyAuthority("admin").
+			antMatchers("/product/add").hasAnyAuthority("admin").
+			antMatchers("/product/delete").hasAnyAuthority("admin").
+			antMatchers("/product*").permitAll().
 			antMatchers("/product").permitAll().
 			antMatchers("/home").permitAll().
-			antMatchers("/favorites/*").permitAll().
-			antMatchers("/favorites").permitAll().
+			antMatchers("/favorites/*").hasAnyAuthority("admin","user").
+			antMatchers("/favorites").hasAnyAuthority("admin","user").
 			antMatchers("/*").hasAnyAuthority("admin").
 			antMatchers("/user/list").hasAnyAuthority("admin").
+			antMatchers("/user/delete").hasAnyAuthority("admin").
 				and().formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/")
 					.failureUrl("/login?error=true").permitAll().
 				and().logout().logoutSuccessUrl("/")

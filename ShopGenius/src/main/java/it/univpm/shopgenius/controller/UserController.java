@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import it.univpm.shopgenius.model.entities.User;
 import it.univpm.shopgenius.services.UserService;
+import it.univpm.shopgenius.utils.Utilities;
 
 @Controller
 @RequestMapping("/user")
@@ -30,37 +31,47 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    private Utilities utilities = new Utilities();
 
     @GetMapping("/list")
     public String listCustomers(Model model) {
         List <User> users = userService.getUsers();
         model.addAttribute("users", users);
-        return "list_users";
+        
+    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+    	model.addAttribute("username", utilities.getCurrentUserName());
+        return "tiles_list_users";
     }
 
     @GetMapping("/showForm")
     public String showFormForAdd(Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Collection<SimpleGrantedAuthority> auth = (Collection<SimpleGrantedAuthority>) authentication.getAuthorities();
-		for (SimpleGrantedAuthority r: auth) {
-			if (r.getAuthority().equals("admin")) {
-				model.addAttribute("role", r.getAuthority());
-				break;
-			} else if (r.getAuthority().equals("user")) {
-				model.addAttribute("role", r.getAuthority());
-				break;
-			}
-		}
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		Collection<SimpleGrantedAuthority> auth = (Collection<SimpleGrantedAuthority>) authentication.getAuthorities();
+//		for (SimpleGrantedAuthority r: auth) {
+//			if (r.getAuthority().equals("admin")) {
+//				model.addAttribute("role", r.getAuthority());
+//				break;
+//			} else if (r.getAuthority().equals("user")) {
+//				model.addAttribute("role", r.getAuthority());
+//				break;
+//			}
+//		}
+		
+    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+    	model.addAttribute("username", utilities.getCurrentUserName());
+    	
 		User user = new User();
 		model.addAttribute("user", user);
-        return "user_form";
+        return "tiles_register";
     }
 
     @PostMapping("/saveUser")
     public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult br, @RequestParam(value = "makeAdmin", required = false) boolean makeAdmin, Model model) {
     	if (br.hasErrors()) {
-    		System.out.println("TEST");
-    		return "user_form";
+        	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+        	model.addAttribute("username", utilities.getCurrentUserName());
+    		return "tiles_register";
     	} else {
 	    	userService.saveUser(user);
 	    	if (makeAdmin) {
@@ -75,7 +86,9 @@ public class UserController {
     public String showFormForUpdate(@RequestParam("userId") int id, Model model) {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
-        return "user_form";
+    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+    	model.addAttribute("username", utilities.getCurrentUserName());
+        return "tiles_register";
     }
 
     @GetMapping("/delete")

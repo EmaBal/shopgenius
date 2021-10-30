@@ -71,10 +71,11 @@ public class ProductController {
 		}
     	ProductType productType = product.getProductType();
     	model.addAttribute("role",currentUserRole);
+    	model.addAttribute("username", utilities.getCurrentUserName());
     	model.addAttribute(product);
     	String productTypeName = productType.getTypeName();
     	model.addAttribute("productType", productTypeName);
-    	return "product";
+    	return "tiles_product";
     }
     
     @GetMapping("/add")
@@ -82,7 +83,10 @@ public class ProductController {
     	Product product = new Product();
         model.addAttribute("product", product);
         model.addAttribute("productTypes", productTypeService.getTypes());
-    	return "product_form";
+        
+    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+    	model.addAttribute("username", utilities.getCurrentUserName());
+    	return "tiles_product_form";
     }
     
     @GetMapping("/update")
@@ -90,7 +94,10 @@ public class ProductController {
     	Product product = productService.getProductById(id);
         model.addAttribute("product", product);
         model.addAttribute("productTypes", productTypeService.getTypes());
-    	return "product_form";
+        
+    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+    	model.addAttribute("username", utilities.getCurrentUserName());
+    	return "tiles_product_form";
     }
     
     @PostMapping("/save")
@@ -98,7 +105,10 @@ public class ProductController {
     	if (br.hasErrors()) {
     		System.out.println("has errors");
     		model.addAttribute("productTypes", productTypeService.getTypes());
-    		return "product_form";
+    		
+        	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+        	model.addAttribute("username", utilities.getCurrentUserName());
+    		return "tiles_product_form";
     	} else {
 	    	product.setProductType(productTypeService.getProductTypeFromName(typeName));
 	    	productService.saveProduct(product);
@@ -110,7 +120,10 @@ public class ProductController {
     public String manageProducts(Model model) {
         List <Product> products = productService.getProducts();
         model.addAttribute("products", products);
-    	return "list_products";
+        
+    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+    	model.addAttribute("username", utilities.getCurrentUserName());
+    	return "tiles_list_products";
     }
     
     @GetMapping("/delete")

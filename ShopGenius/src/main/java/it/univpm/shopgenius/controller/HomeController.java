@@ -46,17 +46,12 @@ public class HomeController {
 //			}
 //		}
 		String currenUserRole = utilities.getCurrentUserMajorRole();
-		if (currenUserRole.equals("admin"))
-			model.addAttribute("role","admin");
-		else if (currenUserRole.equals("user"))
-			model.addAttribute("role","user");
+//		if (currenUserRole.equals("admin"))
+		model.addAttribute("role",currenUserRole);
+//		else if (currenUserRole.equals("user"))
+//			model.addAttribute("role","user");
 		model.addAttribute("error", error);
 		model.addAttribute("username", utilities.getCurrentUserName());
-		return "home";
-	}
-	
-	@GetMapping("/myapp")
-	public String tilesTest() {
-		return "myapp";
+		return "tiles_home";
 	}
 }

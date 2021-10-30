@@ -16,7 +16,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/ShopGenius/home"><img src="<c:url value="/resources/img/shopgenius_black.png"/>" width="32" height="32"/>ShopGenius</a>
+    <a class="navbar-brand" href="home"><img src="<c:url value="/resources/img/shopgenius_black.png"/>" width="32" height="32"/>ShopGenius</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -25,18 +25,18 @@
         <c:choose>
         <c:when test="${role eq 'admin'}">
         <li class="nav-item">
-          <a class="nav-link" href="/ShopGenius/user/list">Manage Users</a>
+          <a class="nav-link" href="user/list">Manage Users</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/ShopGenius/product/list">Manage Products</a>
+          <a class="nav-link" href="product/list">Manage Products</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/ShopGenius/favorites">Favorites</a>
+          <a class="nav-link" href="favorites">Favorites</a>
         </li>
         </c:when>
         <c:when test="${role eq 'user'}">
         <li class="nav-item">
-          <a class="nav-link" href="/ShopGenius/favorites">Favorites</a>
+          <a class="nav-link" href="favorites">Favorites</a>
         </li>
         </c:when>
         </c:choose>
@@ -48,8 +48,8 @@
 				<i class="bi bi-person-circle"> Login/Register</i>
 			  </button>
 			  <ul class="dropdown-menu dropdown-menu-lg-end">
-			    <li><a class="dropdown-item" href="/ShopGenius/login">Login</a></li>
-			    <li><a class="dropdown-item" href="/ShopGenius/user/showForm">Register</a></li>
+			    <li><a class="dropdown-item disabled" href="login">Login</a></li>
+			    <li><a class="dropdown-item" href="user/showForm">Register</a></li>
 			  </ul>
 			</div>
 		</c:when>
@@ -59,7 +59,7 @@
 				<i class="bi bi-person-circle"> ${username}</i>
 			  </button>
 			  <ul class="dropdown-menu dropdown-menu-lg-end">
-			    <li><a class="dropdown-item" href="/ShopGenius/logout">Logout</a></li>
+			    <li><a class="dropdown-item" href="logout">Logout</a></li>
 			  </ul>
 			</div>
 		</c:otherwise>

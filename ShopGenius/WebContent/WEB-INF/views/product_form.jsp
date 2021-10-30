@@ -1,69 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
- pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+ pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib  uri="http://www.springframework.org/tags" prefix="spring"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Add product</title>
-<link href="<c:url value="/WEB-INF/css/bootstrap.min.css" />"
- rel="stylesheet">
-<script src="<c:url value="/WEB-INF/js/jquery-1.11.1.min.js" />"></script>
-<script src="<c:url value="/WEB-INF/js/bootstrap.min.js" />"></script>
 
-</head>
 <body>
  <div class="container">
   <div class="col-md-offset-2 col-md-7">
-   
-   <div class="panel panel-info">
-    <div class="panel-body">
-    <input value="<--" type="button" onclick="history.go(-1);" />
-     <form:form action="save" cssClass="form-horizontal"
-      method="post" modelAttribute="product">
+	<br/>
       <c:choose>
 	      <c:when test="${empty product.name}">
-	      	<h2 class="text-center">Add product</h2>
+	      	<h2>Add Product</h2>
 	      </c:when>
 	      <c:otherwise>
-	      	<h2 class="text-center">Update product</h2>
+	      	<h2>Update Product</h2>
 	      </c:otherwise>
       </c:choose>
-      <form:hidden path="id" />
-
-      <div class="form-group">
-       <label for="name" class="col-md-3 control-label">Product Name</label>
-       <div class="col-md-9">
-        <form:input path="name" cssClass="form-control" />  <form:errors path="name" cssStyle="color: #ff0000;"/>
-       </div>
-      </div>
-      <div class="form-group">
-       <label for="price" class="col-md-3 control-label">Price</label>
-       <div class="col-md-9">
-        <form:input path="price" cssClass="form-control" />  <form:errors path="price" cssStyle="color: #ff0000;"/>
-       </div>
-      </div>
-
-      <div class="form-group">
-       <label for="quantity" class="col-md-3 control-label">Quantity</label>
-       <div class="col-md-9">
-        <form:input type="number" path="quantity" cssClass="form-control" />  <form:errors path="quantity" cssStyle="color: #ff0000;"/>
-       </div>
-      </div>
       
-        <div class="form-group">
-       <label for="locationDetail" class="col-md-3 control-label">Location detail</label>
-       <div class="col-md-9">
-        <form:input path="locationDetail" cssClass="form-control" />  <form:errors path="locationDetail" cssStyle="color: #ff0000;"/>
-       </div>
-      </div>
-      
-      <div class="form-group">
-	  	<label for="type" class="col-md-3 control-label">Product Type</label>
-	    <div class="col-md-9">
-	        <select name="typeName" id="typeName">
+<form:form action="save" method="post" modelAttribute="product">
+<form:hidden path="id" />
+  <div class="mb-3">
+    <label for="name" class="form-label">Product name</label>
+    <form:input type="name" path="name" class="form-control" id="name" /> <form:errors path="name" cssStyle="color: #ff0000;"/>
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">Price (&#8364;)</label>
+    <form:input type="number" path="price" class="form-control" id="price"  step='0.01' value='0.00' placeholder='0.00' /> <form:errors path="price" cssStyle="color: #ff0000;"/>
+  </div>
+  <div class="mb-3">
+    <label for="quantity" class="form-label">Available quantity</label>
+    <form:input type="number" path="quantity" class="form-control" id="quantity" /> <form:errors path="quantity" cssStyle="color: #ff0000;"/>
+  </div>
+  <div class="mb-3">
+    <label for="locationDetail" class="form-label">Location detail</label>
+    <form:input type="locationDetail" path="locationDetail" class="form-control" id="locationDetail" /> <form:errors path="locationDetail" cssStyle="color: #ff0000;"/>
+  </div>
+  <div class="mb-3">
+    <label for="type" class="form-label">Product type</label>
+    <select class="form-select text-capitalize" name="typeName" id="typeName">
 				<c:forEach var="type" items="${productTypes}">
 				<c:choose>
 	      			<c:when test="${not empty product.productType.typeName}">
@@ -82,21 +56,10 @@
 				</c:choose>
 	        	</c:forEach>
 			</select>
-		</div>
-      </div>
-
-      <div class="form-group">
-       <!-- Button -->
-       <div class="col-md-offset-3 col-md-9">
-        <form:button cssClass="btn btn-primary">Submit</form:button>
-       </div>
-      </div>
-
-     </form:form>
-
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form:form>
     </div>
    </div>
-  </div>
- </div>
 </body>
 </html>

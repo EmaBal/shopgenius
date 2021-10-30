@@ -1,35 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
- pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+ pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head><%@ page isELIgnored="false" %>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Manage Products</title>
-<link href="<c:url value="/WEB-INF/css/bootstrap.min.css" />"
- rel="stylesheet">
-<script src="<c:url value="/WEB-INF/js/jquery-1.11.1.min.js" />"></script>
-<script src="<c:url value="/WEB-INF/js/bootstrap.min.js" />"></script>
-</head>
+
 <body>
  <div class="container">
-  <div class="col-md-offset-1 col-md-10">
+  <div class="col-md-offset-1 col-md-10"><br/>
    <h2>Manage Products</h2>
    <hr />
 
-   <input type="button" value="Add product"
-    onclick="window.location.href='add'; return false;"
-    class="btn btn-primary" />
+   <input type="button" value="Add Product" onclick="window.location.href='add'; return false;" class="btn btn-primary" />
     <br/><br/>
-   <div class="panel panel-info">
-    <div class="panel-body">
-     <table class="table table-striped table-bordered">
+     <table class="table table-striped table-bordered text-center">
       <tr>
        <th>Name</th>
        <th>Price</th>
-       <th>Quantity</th>
+       <th>Available<br>quantity</th>
        <th>Type</th>
-       <th>Location Detail</th>
+       <th>Location<br>detail</th>
+       <th colspan="2" class="mx-auto">Action</th>
       </tr>
 
       <!-- loop over and print our customers -->
@@ -44,19 +32,23 @@
        <c:url var="deleteLink" value="/product/delete">
         <c:param name="productId" value="${tempProduct.id}" />
        </c:url>
+       
+	    <c:url var="viewDetails" value="/product">
+	    	<c:param name="productName" value="${tempProduct.name}" />
+	    </c:url>
 
        <tr>
-        <td>${tempProduct.name}</td>
-        <td>${tempProduct.price}</td>
+        <%-- <td class="text-capitalize">${tempProduct.name}</td> --%>
+        <td><a href="${viewDetails}" class="text-capitalize" style="text-decoration: none">${tempProduct.name}</a></td>
+        <td>${tempProduct.price} &#8364;</td>
         <td>${tempProduct.quantity}</td>
-        <td>${tempProduct.productType.typeName}</td>
+        <td class="text-capitalize">${tempProduct.productType.typeName}</td>
         <td>${tempProduct.locationDetail}</td>
 
-        <td>
-         <!-- display the update link --> <a href="${updateLink}">Update</a>
-         | <a href="${deleteLink}"
-         onclick="if (!(confirm('Are you sure you want to delete this product?'))) return false">Delete</a>
-        </td>
+        
+         	<td><a href="${updateLink}" style="text-decoration: none">Update</a></td>
+         <td><a href="${deleteLink}" style="text-decoration: none" onclick="if (!(confirm('Are you sure you want to delete this product?'))) return false">Delete</a></td>
+        
 
        </tr>
 
@@ -66,8 +58,5 @@
 
     </div>
    </div>
-  </div>
-
- </div>
 </body>
 </html>
