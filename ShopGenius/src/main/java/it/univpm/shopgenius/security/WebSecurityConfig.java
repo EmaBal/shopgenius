@@ -2,7 +2,6 @@ package it.univpm.shopgenius.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,17 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import it.univpm.shopgenius.services.UserServiceImpl;
 
 @Configuration
-//@ComponentScan(basePackages= {"it.univpm.shopgenius.security"})
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-	
-	//@Autowired
-	//private PasswordEncoder passwordEncoder;
-
-//	@Autowired
-//	private UserService userService;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -43,16 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder) throws Exception {
-
-//		auth.inMemoryAuthentication().withUser("imuser")
-//			.password(this.passwordEncoder.encode("imuser"))
-//			.roles("USER");
-//		auth.inMemoryAuthentication().withUser("imadmin")
-//			.password(this.passwordEncoder.encode("imadmin"))
-//			.roles("USER", "ADMIN");
-
-		// auth.userDetailsService(userDetailsService()).passwordEncoder(this.passwordEncoder); // TODO refactor
-		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder); // TODO refactor
+		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder);
 	}
 	
 	/**
@@ -79,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			antMatchers("/favorites/*").hasAnyAuthority("admin","user").
 			antMatchers("/favorites").hasAnyAuthority("admin","user").
 			antMatchers("/*").hasAnyAuthority("admin").
+			antMatchers("/user/details").hasAnyAuthority("admin","user").
 			antMatchers("/user/list").hasAnyAuthority("admin").
 			antMatchers("/user/delete").hasAnyAuthority("admin").
 				and().formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/")
@@ -86,11 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				and().logout().logoutSuccessUrl("/")
 					.invalidateHttpSession(true).permitAll().
 			and().csrf().disable();
-	
-
 	}
-
-
-
 
 }

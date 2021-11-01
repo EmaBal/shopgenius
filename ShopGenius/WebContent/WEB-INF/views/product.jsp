@@ -32,18 +32,26 @@
    <hr />
     
      <table class="table table-striped table-bordered">
-      <tr>
+<%--       <tr>
        <td><b>Name</b></td>
        <td class="text-capitalize">${product.name}</td>
        
-      </tr>
+      </tr> --%>
       <tr>
        <td><b>Price</b></td>
        <td>${product.price} &#8364;</td>
       </tr>
       <tr>
+      <c:choose>
+      <c:when test="${product.quantity == 0}">
+	   <td><b>Available quantity</b></td>
+       <td style="color:red">Not available</td>
+      </c:when>
+      <c:otherwise>
        <td><b>Available quantity</b></td>
        <td>${product.quantity}</td>
+      </c:otherwise>
+      </c:choose>
       </tr>
       <tr>
        <td><b>Product type</b></td>

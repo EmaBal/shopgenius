@@ -5,9 +5,14 @@
 <body>
  <div class="container">
   <div class="col-md-offset-2 col-md-7"><br/>
-   <h2>Register</h2><br/>
-   <div class="panel panel-info">
-    <div class="panel-body">
+   <c:choose>
+    <c:when test="${empty user.email}">
+    	<h2>Register</h2><br/>
+    </c:when>
+    <c:otherwise>
+    	<h2>Update</h2><br/>
+    </c:otherwise>
+    </c:choose>
      <form:form action="saveUser" method="post" modelAttribute="user">
 
       <form:hidden path="id" />
@@ -39,8 +44,16 @@
        </div>
       </div>
       <c:if test="${role eq 'admin'}">
+      <input type="hidden" name="updateRole" value="${update_role}"/>
       	<div class="mb-3 form-check">
-		  <input type="checkbox" class="form-check-input" id="makeAdmin" name="makeAdmin">
+      	<c:choose>
+		      <c:when test="${update_role eq 'admin'}">
+		      	<input type="checkbox" class="form-check-input" id="makeAdmin" name="makeAdmin" checked>
+		      </c:when>
+		      <c:otherwise>
+		      	<input type="checkbox" class="form-check-input" id="makeAdmin" name="makeAdmin">
+		      </c:otherwise>
+	      </c:choose>
 		  <label class="form-check-label" for="makeAdmin">Admin</label>
 		</div>
       </c:if>
@@ -50,7 +63,5 @@
      </form:form>
     </div>
    </div>
-  </div>
- </div>
 </body>
 </html>

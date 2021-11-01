@@ -28,4 +28,6 @@ public interface UserService {
 
 	public void addRole(User user, String roleName);
 
+	public void removeRole(User user, String roleName);
+
 }

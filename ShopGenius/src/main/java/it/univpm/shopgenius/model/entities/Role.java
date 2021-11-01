@@ -1,19 +1,13 @@
 package it.univpm.shopgenius.model.entities;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import it.univpm.shopgenius.model.entities.User;
 
 @Entity
 @Table(name = "roles")
@@ -23,7 +17,7 @@ public class Role {
     @Column(name="role_id")
     private Long id;
  
-    @Column(name="name")
+    @Column(name="name", nullable = false, unique=true)
     private String name;
  
     public String getName() {

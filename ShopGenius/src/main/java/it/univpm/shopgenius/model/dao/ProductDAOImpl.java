@@ -11,7 +11,6 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import it.univpm.shopgenius.model.entities.Product;
-import it.univpm.shopgenius.model.entities.User;
 
 @Repository
 public class ProductDAOImpl extends DefaultDao implements ProductDAO {
@@ -35,7 +34,6 @@ public class ProductDAOImpl extends DefaultDao implements ProductDAO {
 	
 	@Override
 	public Product create(String name, float price, int quantity, String locationDetail) {
-		// da mettere nel controller
 		Product p = new Product();
 		p.setName(name);
 		p.setPrice(price);

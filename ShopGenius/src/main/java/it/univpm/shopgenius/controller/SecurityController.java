@@ -12,7 +12,7 @@ import it.univpm.shopgenius.utils.Utilities;
 public class SecurityController 
 {
 	@Autowired
-	String appName; // = "SingersApp";
+	String appName;
 	
     @Autowired
     private UserService userService;
@@ -27,26 +27,18 @@ public class SecurityController
         	errorMessage = "Email o password errati";
         }
         
-//        if(logout != null) {
-//        	// entriamo in questo caso se non specifichiamo una .logoutSuccessUrl in WebSecurityConf.configure
-//        	errorMessage = "Uscita dal sistema avvenuta !!";
-//        }
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("appName", appName);
-        
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
-    	model.addAttribute("username", utilities.getCurrentUserName());
+		try {
+	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+			} catch (Exception e) {
+		    	model.addAttribute("current_firstName", "anonymous");
+		    	model.addAttribute("current_lastName", "anonymous");
+			}
     	
         return "tiles_login";
     }
-  
-//    @GetMapping(value="/logout")
-//    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null){    
-//            new SecurityContextLogoutHandler().logout(request, response, auth);
-//        }
-//        return "redirect:/";
-//    }
 }
 

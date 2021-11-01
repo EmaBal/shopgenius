@@ -8,7 +8,6 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import it.univpm.shopgenius.model.entities.Role;
-import it.univpm.shopgenius.model.entities.User;
 
 @Repository
 public class RoleDAOImpl extends DefaultDao implements RoleDAO {
@@ -18,7 +17,6 @@ public class RoleDAOImpl extends DefaultDao implements RoleDAO {
 		Role r = new Role();
 		r.setName(name);
 		this.getSession().save(r);
-		
 		return r;
 	}
 

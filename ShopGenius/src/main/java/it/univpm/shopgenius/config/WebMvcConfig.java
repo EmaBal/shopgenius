@@ -12,7 +12,6 @@ import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
-import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 
 
 @Configuration

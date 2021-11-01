@@ -17,8 +17,11 @@ import it.univpm.shopgenius.model.entities.ProductType;
 public class ProductTypeDAOImpl extends DefaultDao implements ProductTypeDAO {
 	
 	@Override
-	public void create(String name) {
-		//da vedere (implementare nel controller?)
+	public ProductType create(String name) {
+		ProductType pt = new ProductType();
+		pt.setTypeName(name);
+		this.getSession().save(pt);
+		return pt;
 	}
 	
 	@Override

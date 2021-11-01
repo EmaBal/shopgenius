@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,42 +30,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private RoleDAO roleDAO;
 
-	public RoleDAO getRoleDAO() {
-		return roleDAO;
-	}
-
-	public void setRoleDAO(RoleDAO roleDAO) {
-		this.roleDAO = roleDAO;
-	}
+//	public RoleDAO getRoleDAO() {
+//		return roleDAO;
+//	}
+//
+//	public void setRoleDAO(RoleDAO roleDAO) {
+//		this.roleDAO = roleDAO;
+//	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-//		User user = userDAO.findUserByUsername(email);
 		User user = userDAO.findUserByEmail(email);
         List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
         return buildUserForAuthentication(user, authorities);
-//		UserBuilder builder = null;
-//		if (user != null) {
-//
-//			// qui "mappiamo" uno User della nostra app in uno User di spring
-//			builder = org.springframework.security.core.userdetails.User.withUsername(email);
-//			builder.disabled(!user.isEnabled());
-//			builder.password(user.getPassword());
-//
-////			String[] roles = new String[user.getRoles().size()];
-////
-////			int j = 0;
-////			for (Role r : user.getRoles()) {
-////				roles[j++] = r.getName();
-////			}
-////
-////			builder.roles(roles);
-//		} else {
-//			throw new UsernameNotFoundException("User not found.");
-//		}
-//		return builder.build();
 	}
 	
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
@@ -86,7 +63,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public User findById(String email) {
-		return this.userDAO.findUserByUsername(email);
+		return this.userDAO.findUserByEmail(email);
 	}
 	
 	@Override
@@ -137,5 +114,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	public void addRole(User user, String roleName) {
 		userDAO.addRole(user, roleDAO.getRole(roleName));
+	}
+
+	@Override
+	public void removeRole(User user, String roleName) {
+		userDAO.removeRole(user,roleDAO.getRole(roleName));
+		
 	}
 }

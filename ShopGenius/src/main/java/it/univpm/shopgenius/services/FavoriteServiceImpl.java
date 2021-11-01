@@ -1,7 +1,5 @@
 package it.univpm.shopgenius.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +14,6 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 	@Autowired
 	FavoriteDAO favoriteDAO;
-	
-	@Override
-	public List<Product> getFavoritesFromEmail(String email) {
-		return favoriteDAO.getFavoritesFromEmail(email);
-	}
 	
 	@Transactional
 	@Override

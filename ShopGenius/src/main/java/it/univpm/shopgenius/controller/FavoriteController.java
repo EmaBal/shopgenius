@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -50,7 +48,13 @@ public class FavoriteController {
 		model.addAttribute("favorites", favorites);
 		
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
-    	model.addAttribute("username", utilities.getCurrentUserName());
+		try {
+	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+			} catch (Exception e) {
+		    	model.addAttribute("current_firstName", "anonymous");
+		    	model.addAttribute("current_lastName", "anonymous");
+			}
 		return "tiles_favorites";
 	}
 	

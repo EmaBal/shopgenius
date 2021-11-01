@@ -2,6 +2,8 @@ package it.univpm.shopgenius.model.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
 import it.univpm.shopgenius.model.entities.Product;
 
 public interface ProductDAO {
@@ -19,4 +21,7 @@ public interface ProductDAO {
 	public void saveProduct(Product product);
 
 	public List<Product> getProducts();
+	
+	Session getSession();
+	public void setSession(Session session);
 }

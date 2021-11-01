@@ -7,7 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class Utilities {
-
+	
 	public Utilities() {
 		
 	}
@@ -30,20 +30,5 @@ public class Utilities {
 		}
 		return "anonymous";
 	}
-}
 
-//try {
-//	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//	Collection<SimpleGrantedAuthority> auth = (Collection<SimpleGrantedAuthority>) authentication.getAuthorities();
-//	for (SimpleGrantedAuthority r: auth) {
-//		if (r.getAuthority().equals("admin")) {
-//			return "admin";
-//		} else if (r.getAuthority().equals("user")) {
-//			return "user";
-//		}
-//	}
-//	return "anonymous";
-//} catch (Exception e) {
-//return "anonymous";
-//}
-//}
+}

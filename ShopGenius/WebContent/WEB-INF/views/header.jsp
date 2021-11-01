@@ -56,9 +56,10 @@
 		<c:otherwise>
 			<div class="btn-group">
 			  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-				<i class="bi bi-person-circle"> ${username}</i>
+				<i class="bi bi-person-circle text-capitalize"> ${current_firstName} ${current_lastName}</i>
 			  </button>
 			  <ul class="dropdown-menu dropdown-menu-lg-end">
+			  	<li><a class="dropdown-item" href="/ShopGenius/user/details">Profile</a></li>
 			    <li><a class="dropdown-item" href="/ShopGenius/logout">Logout</a></li>
 			  </ul>
 			</div>

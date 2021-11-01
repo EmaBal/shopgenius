@@ -25,7 +25,7 @@
   </div>
   <div class="mb-3">
     <label for="price" class="form-label">Price (&#8364;)</label>
-    <form:input type="number" path="price" class="form-control" id="price"  step='0.01' value='0.00' placeholder='0.00' /> <form:errors path="price" cssStyle="color: #ff0000;"/>
+    <form:input type="number" path="price" class="form-control" id="price"  step='0.01' placeholder='0.00' /> <form:errors path="price" cssStyle="color: #ff0000;"/>
   </div>
   <div class="mb-3">
     <label for="quantity" class="form-label">Available quantity</label>

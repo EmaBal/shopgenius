@@ -2,6 +2,7 @@ package it.univpm.shopgenius.model.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import it.univpm.shopgenius.model.entities.Role;
@@ -17,7 +18,7 @@ public interface UserDAO {
 
     public void deleteUser(int id);
 
-	User findUserByUsername(String email);
+//	User findUserByUsername(String email);
 
 	User create(String first_name, String last_name, String email, String password, boolean isEnabled);
 
@@ -32,4 +33,9 @@ public interface UserDAO {
 	public User findUserByEmail(String email);
 
 	public void addRole(User user, Role role);
+
+	public void removeRole(User user, Role role);
+	
+	Session getSession();
+	public void setSession(Session session);
 }

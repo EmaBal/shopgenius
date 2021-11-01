@@ -5,10 +5,6 @@ import org.hibernate.Session;
 import it.univpm.shopgenius.model.entities.Role;
 
 public interface RoleDAO {
-	
-	Session getSession();
-	
-	public void setSession(Session session);
 
 	Role create(String name);
 	
@@ -17,5 +13,8 @@ public interface RoleDAO {
 	void delete(Role role);
 
 	Role getRole(String role_name);
+	
+	Session getSession();
+	public void setSession(Session session);
 
 }

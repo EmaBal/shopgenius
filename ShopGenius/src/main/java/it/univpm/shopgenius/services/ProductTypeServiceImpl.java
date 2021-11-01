@@ -15,8 +15,8 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 	ProductTypeDAO productTypeDAO;
 	
 	@Override
-	public void create(String name) {
-		productTypeDAO.create(name);	
+	public ProductType create(String name) {
+		return productTypeDAO.create(name);
 	}
 
 	@Override

@@ -3,14 +3,9 @@ package it.univpm.shopgenius.controller;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import it.univpm.shopgenius.model.entities.Product;
 import it.univpm.shopgenius.model.entities.ProductType;
@@ -47,6 +41,7 @@ public class ProductController {
 	@PostMapping("/search")
     public String searchProduct(@RequestParam("productName") String productName, @RequestParam(value = "error", required = false) String error, Model model) {
 		try {
+			@SuppressWarnings("unused")
 			Product product = productService.getProductByName(productName);
 	        model.addAttribute("productName", productName);
 	        return "redirect:/product";
@@ -71,7 +66,13 @@ public class ProductController {
 		}
     	ProductType productType = product.getProductType();
     	model.addAttribute("role",currentUserRole);
-    	model.addAttribute("username", utilities.getCurrentUserName());
+		try {
+	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+			} catch (Exception e) {
+		    	model.addAttribute("current_firstName", "anonymous");
+		    	model.addAttribute("current_lastName", "anonymous");
+			}
     	model.addAttribute(product);
     	String productTypeName = productType.getTypeName();
     	model.addAttribute("productType", productTypeName);
@@ -85,7 +86,13 @@ public class ProductController {
         model.addAttribute("productTypes", productTypeService.getTypes());
         
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
-    	model.addAttribute("username", utilities.getCurrentUserName());
+		try {
+	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+			} catch (Exception e) {
+		    	model.addAttribute("current_firstName", "anonymous");
+		    	model.addAttribute("current_lastName", "anonymous");
+			}
     	return "tiles_product_form";
     }
     
@@ -96,7 +103,13 @@ public class ProductController {
         model.addAttribute("productTypes", productTypeService.getTypes());
         
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
-    	model.addAttribute("username", utilities.getCurrentUserName());
+		try {
+	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+			} catch (Exception e) {
+		    	model.addAttribute("current_firstName", "anonymous");
+		    	model.addAttribute("current_lastName", "anonymous");
+			}
     	return "tiles_product_form";
     }
     
@@ -107,7 +120,13 @@ public class ProductController {
     		model.addAttribute("productTypes", productTypeService.getTypes());
     		
         	model.addAttribute("role",utilities.getCurrentUserMajorRole());
-        	model.addAttribute("username", utilities.getCurrentUserName());
+    		try {
+    	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+    	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+    			} catch (Exception e) {
+    		    	model.addAttribute("current_firstName", "anonymous");
+    		    	model.addAttribute("current_lastName", "anonymous");
+    			}
     		return "tiles_product_form";
     	} else {
 	    	product.setProductType(productTypeService.getProductTypeFromName(typeName));
@@ -120,9 +139,14 @@ public class ProductController {
     public String manageProducts(Model model) {
         List <Product> products = productService.getProducts();
         model.addAttribute("products", products);
-        
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
-    	model.addAttribute("username", utilities.getCurrentUserName());
+		try {
+	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+			} catch (Exception e) {
+		    	model.addAttribute("current_firstName", "anonymous");
+		    	model.addAttribute("current_lastName", "anonymous");
+			}
     	return "tiles_list_products";
     }
     

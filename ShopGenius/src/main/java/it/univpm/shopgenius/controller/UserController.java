@@ -1,26 +1,20 @@
 package it.univpm.shopgenius.controller;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
+import it.univpm.shopgenius.model.entities.Role;
 import it.univpm.shopgenius.model.entities.User;
 import it.univpm.shopgenius.services.UserService;
 import it.univpm.shopgenius.utils.Utilities;
@@ -40,26 +34,26 @@ public class UserController {
         model.addAttribute("users", users);
         
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
-    	model.addAttribute("username", utilities.getCurrentUserName());
+		try {
+	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+			} catch (Exception e) {
+		    	model.addAttribute("current_firstName", "anonymous");
+		    	model.addAttribute("current_lastName", "anonymous");
+			}
         return "tiles_list_users";
     }
 
     @GetMapping("/showForm")
     public String showFormForAdd(Model model) {
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		Collection<SimpleGrantedAuthority> auth = (Collection<SimpleGrantedAuthority>) authentication.getAuthorities();
-//		for (SimpleGrantedAuthority r: auth) {
-//			if (r.getAuthority().equals("admin")) {
-//				model.addAttribute("role", r.getAuthority());
-//				break;
-//			} else if (r.getAuthority().equals("user")) {
-//				model.addAttribute("role", r.getAuthority());
-//				break;
-//			}
-//		}
-		
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
-    	model.addAttribute("username", utilities.getCurrentUserName());
+		try {
+	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+			} catch (Exception e) {
+		    	model.addAttribute("current_firstName", "anonymous");
+		    	model.addAttribute("current_lastName", "anonymous");
+			}
     	
 		User user = new User();
 		model.addAttribute("user", user);
@@ -67,15 +61,28 @@ public class UserController {
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult br, @RequestParam(value = "makeAdmin", required = false) boolean makeAdmin, Model model) {
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult br, @RequestParam(value = "makeAdmin", required = false) boolean makeAdmin, @RequestParam(value = "updateRole", required = false) String updateRole, Model model) {
     	if (br.hasErrors()) {
         	model.addAttribute("role",utilities.getCurrentUserMajorRole());
-        	model.addAttribute("username", utilities.getCurrentUserName());
+    		try {
+    	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+    	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+    			} catch (Exception e) {
+    		    	model.addAttribute("current_firstName", "anonymous");
+    		    	model.addAttribute("current_lastName", "anonymous");
+    			}
     		return "tiles_register";
     	} else {
 	    	userService.saveUser(user);
-	    	if (makeAdmin) {
+	    	if (makeAdmin && updateRole.equals("user")) {
 	    		userService.addRole(user, "admin");
+	    		userService.update(user);
+	    	} else if (makeAdmin) {
+	    		userService.addRole(user, "admin");
+	    		userService.update(user);
+	    	}
+	    	if (!makeAdmin && updateRole.equals("admin")) {
+	    		userService.removeRole(user, "admin");
 	    		userService.update(user);
 	    	}
 	        return "redirect:/";
@@ -86,8 +93,22 @@ public class UserController {
     public String showFormForUpdate(@RequestParam("userId") int id, Model model) {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
+        for (Role role: user.getRoles()) {
+        	if (role.getName().equals("admin")) {
+        		model.addAttribute("update_role", "admin");
+        		break;
+        	} else if (role.getName().equals("user")) {
+        		model.addAttribute("update_role", "user");
+        	}
+        }
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
-    	model.addAttribute("username", utilities.getCurrentUserName());
+		try {
+	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+		} catch (Exception e) {
+	    	model.addAttribute("current_firstName", "anonymous");
+	    	model.addAttribute("current_lastName", "anonymous");
+		}
         return "tiles_register";
     }
 
@@ -97,5 +118,17 @@ public class UserController {
         return "redirect:/user/list";
     }
     
-    
+    @GetMapping("details")
+    public String userDetails(Model model) {
+    	model.addAttribute("user", userService.findUserByEmail(utilities.getCurrentUserName()));
+    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+		try {
+	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
+	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
+		} catch (Exception e) {
+	    	model.addAttribute("current_firstName", "anonymous");
+	    	model.addAttribute("current_lastName", "anonymous");
+		}
+    	return "tiles_user_details";
+    }
 }

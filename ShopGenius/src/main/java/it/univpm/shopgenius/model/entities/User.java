@@ -14,12 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PreRemove;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,22 +28,22 @@ public class User {
     private int id;
 
 	@NotNull
-	@Size(min=1, max=30, message="Invalid characters number (must be between 1 and 30)")
-    @Column(name = "first_name")
+	@Size(min=1, max=30, message="Invalid character number (must be between 1 and 30)")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
 	@NotNull
-	@Size(min=1, max=30, message="Invalid characters number (must be between 1 and 30)")
-    @Column(name = "last_name")
+	@Size(min=1, max=30, message="Invalid character number (must be between 1 and 30)")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
 	@NotNull
-	@Size(min=1, max=30, message="Invalid characters number (must be between 1 and 30)")
-    @Column(name = "email")
+	@Size(min=1, max=30, message="Invalid character number (must be between 1 and 30)")
+    @Column(name = "email", unique=true, nullable = false)
     private String email;
     
 	@NotNull
-	@Size(min=1, max=30, message="Invalid characters number (must be between 1 and 30)")
+	@Size(min=1, max=30, message="Invalid character number (must be between 1 and 30)")
     @Column(name = "password", nullable = false)
     private String password;
     
@@ -124,7 +119,7 @@ public class User {
 		this.roles = roles;
 	}
 	
-    @ManyToMany(fetch = FetchType.LAZY,         cascade =
+    @ManyToMany(fetch = FetchType.LAZY, cascade =
         {
                 CascadeType.DETACH,
                 CascadeType.MERGE,
@@ -172,7 +167,10 @@ public class User {
 	}
 
 	public void addRole(Role role) {
-		System.out.println(role);
 		this.roles.add(role);
+	}
+	
+	public void removeRole(Role role) {
+		this.roles.remove(role);
 	}
 }

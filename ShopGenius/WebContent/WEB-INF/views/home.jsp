@@ -3,8 +3,8 @@
 <body>
 <div class="container my-5">
 <div class="row">
-<h3>Search Product:</h3>
-<br/><br/></div>
+<h2>Search Product:</h2>
+</div><br/>
 <div class="row">
 <form class="d-flex" action="product/search" method = "POST">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="productName">

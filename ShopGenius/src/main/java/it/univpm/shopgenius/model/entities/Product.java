@@ -12,10 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -32,18 +30,18 @@ public class Product {
     private int id;
 	
 	@NotNull
-	@Size(min=1, max=30, message="Invalid characters number (must be between 1 and 30)")
-	@Column(name = "name")
+	@Size(min=1, max=30, message="Invalid character number (must be between 1 and 30)")
+	@Column(name = "name", nullable = false, unique=true)
 	private String name;
 	
 	@NotNull
 	@Min(value=0, message="Value must be 0 or positive")
-	@Column(name = "price")
+	@Column(name = "price", nullable = false)
 	private float price;
 	
 	@NotNull
 	@Min(value=0, message="Value must be 0 or positive")
-	@Column(name = "quantity")
+	@Column(name = "quantity", nullable = false)
 	private int quantity;
 	
 	@ManyToOne
@@ -51,8 +49,8 @@ public class Product {
 	private ProductType productType;
 	
 	@NotNull
-	@Size(min=1, max=10, message="Invalid characters number (must be between 1 and 30)")
-	@Column(name = "location_detail")
+	@Size(min=1, max=10, message="Invalid character number (must be between 1 and 30)")
+	@Column(name = "location_detail", nullable = false)
 	private String locationDetail;
 	
 	public int getId() {
@@ -104,13 +102,13 @@ public class Product {
 		this.productType = productType;
 	}
 	
-	@ManyToMany (fetch = FetchType.LAZY,         cascade =
+	@ManyToMany (fetch = FetchType.LAZY, cascade =
         {
                 CascadeType.DETACH,
                 CascadeType.MERGE,
                 CascadeType.REFRESH,
                 CascadeType.PERSIST
-        },mappedBy = "products")
+        } ,mappedBy = "products")
 	Set<User> users = new HashSet<User>();
 	
 	public Set<User> getUsers() {
@@ -121,15 +119,15 @@ public class Product {
 		this.users = users;
 	}
 	
-	public void addUser(User u) {
-		this.users.add(u);
-		u.getProducts().add(this);
-	}
-	
-	public void removeUser(User u) {
-		this.users.remove(u);
-		u.getProducts().remove(this);
-	}
+//	public void addUser(User u) {
+//		this.users.add(u);
+//		u.getProducts().add(this);
+//	}
+//	
+//	public void removeUser(User u) {
+//		this.users.remove(u);
+//		u.getProducts().remove(this);
+//	}
 	
 	@Override
 	public String toString() {

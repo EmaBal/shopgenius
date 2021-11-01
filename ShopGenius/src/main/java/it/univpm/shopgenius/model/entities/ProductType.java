@@ -25,7 +25,7 @@ public class ProductType {
     @Column(name = "product_type_id")
     private int id;
 	
-	@Column(name = "type_name")
+	@Column(name = "type_name", nullable = false, unique=true)
 	private String typeName;
 
 	public int getId() {
