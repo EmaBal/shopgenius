@@ -55,7 +55,7 @@
       </tr>
       <tr>
        <td><b>Product type</b></td>
-       <td class="text-capitalize">${productType}</td>
+       <td class="text-capitalize">${product.productType.typeName}</td>
       </tr>
       <tr>
        <td><b>Location detail</b></td>

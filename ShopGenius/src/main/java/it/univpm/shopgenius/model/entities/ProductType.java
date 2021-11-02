@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "product_types")
 public class ProductType {
-
+	
 	@OneToMany(mappedBy="productType", cascade=CascadeType.ALL)
 	private Set<Product> products = new HashSet<Product>();
 	

@@ -24,7 +24,7 @@ public class SecurityController
                             Model model) {
         String errorMessage = null;
         if(error != null) {
-        	errorMessage = "Email o password errati";
+        	errorMessage = "Wrong email or password";
         }
         
         model.addAttribute("errorMessage", errorMessage);

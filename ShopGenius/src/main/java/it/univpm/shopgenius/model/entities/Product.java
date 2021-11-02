@@ -45,7 +45,7 @@ public class Product {
 	private int quantity;
 	
 	@ManyToOne
-	@JoinColumn(name = "product_type", nullable=false)
+	@JoinColumn(name = "product_type")
 	private ProductType productType;
 	
 	@NotNull

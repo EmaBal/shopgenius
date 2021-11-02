@@ -11,6 +11,7 @@ it\univpm\shopgenius\config\WebMvcConfig.class
 it\univpm\shopgenius\model\dao\RoleDAOImpl.class
 it\univpm\shopgenius\controller\HomeController.class
 it\univpm\shopgenius\model\dao\ProductTypeDAO.class
+it\univpm\shopgenius\test\LoadDataTest.class
 it\univpm\shopgenius\model\dao\UserDAO.class
 it\univpm\shopgenius\services\ProductService.class
 it\univpm\shopgenius\services\ProductTypeServiceImpl.class

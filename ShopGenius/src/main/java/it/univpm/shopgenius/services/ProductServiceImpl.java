@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.univpm.shopgenius.model.dao.ProductDAO;
 import it.univpm.shopgenius.model.entities.Product;
+import it.univpm.shopgenius.model.entities.ProductType;
 
 @Transactional
 @Service
@@ -27,13 +28,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product create(String name, float price, int quantity, String locationDetail) {
-		return productDAO.create(name, price, quantity, locationDetail);
+	public Product create(String name, float price, int quantity, String locationDetail, ProductType pType) {
+		return productDAO.create(name, price, quantity, locationDetail, pType);
 	}
 
 	@Override
-	public void delete(Product produdct) {
-		productDAO.delete(produdct);
+	public void delete(Product product) {
+		productDAO.delete(product);
 		
 	}
 
@@ -50,6 +51,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> getProducts() {
 		return productDAO.getProducts();
+	}
+	
+	@Override
+	public List<Product> findProducts(String searchTerm) {
+		return productDAO.findProducts(searchTerm);
 	}
 
 }

@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("/showForm")
-    public String showFormForAdd(Model model) {
+    public String showFormForAdd(@RequestParam(value = "error", required = false) String error, Model model) {
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
@@ -57,6 +57,7 @@ public class UserController {
     	
 		User user = new User();
 		model.addAttribute("user", user);
+		model.addAttribute("error", error);
         return "tiles_register";
     }
 
@@ -73,17 +74,28 @@ public class UserController {
     			}
     		return "tiles_register";
     	} else {
-	    	userService.saveUser(user);
-	    	if (makeAdmin && updateRole.equals("user")) {
-	    		userService.addRole(user, "admin");
-	    		userService.update(user);
-	    	} else if (makeAdmin) {
-	    		userService.addRole(user, "admin");
-	    		userService.update(user);
-	    	}
-	    	if (!makeAdmin && updateRole.equals("admin")) {
-	    		userService.removeRole(user, "admin");
-	    		userService.update(user);
+	    	if (updateRole != null) {
+	    		userService.saveUser(user);
+		    	if (makeAdmin && updateRole.equals("user")) {
+		    		userService.addRole(user, "admin");
+		    		userService.update(user);
+		    	} else if (makeAdmin) {
+		    		userService.addRole(user, "admin");
+		    		userService.update(user);
+		    	}
+		    	if (!makeAdmin && updateRole.equals("admin")) {
+		    		userService.removeRole(user, "admin");
+		    		userService.update(user);
+		    	}
+	    	} else {
+	    		try {
+	    			userService.findUserByEmail(user.getEmail());
+	    			model.addAttribute("error", "Email already used");
+	    			return "redirect:/user/showForm";
+	    		} catch (Exception e) {
+	    			userService.saveUser(user);
+		    		userService.update(user);	    			
+	    		}
 	    	}
 	        return "redirect:/";
     	}

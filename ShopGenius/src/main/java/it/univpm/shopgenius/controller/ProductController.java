@@ -1,5 +1,6 @@
 package it.univpm.shopgenius.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.univpm.shopgenius.model.entities.Product;
 import it.univpm.shopgenius.model.entities.ProductType;
@@ -46,7 +48,7 @@ public class ProductController {
 	        model.addAttribute("productName", productName);
 	        return "redirect:/product";
 		} catch (Exception e) {
-	        model.addAttribute("error", "Prodotto non esistente");
+	        model.addAttribute("error", "Product not found");
 	        return "redirect:/";
 		}
     }
@@ -64,7 +66,7 @@ public class ProductController {
 	    	else
 	    		model.addAttribute("isProductFav", false);
 		}
-    	ProductType productType = product.getProductType();
+//    	ProductType productType = product.getProductType();
     	model.addAttribute("role",currentUserRole);
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
@@ -74,17 +76,17 @@ public class ProductController {
 		    	model.addAttribute("current_lastName", "anonymous");
 			}
     	model.addAttribute(product);
-    	String productTypeName = productType.getTypeName();
-    	model.addAttribute("productType", productTypeName);
+//    	String productTypeName = productType.getTypeName();
+//    	model.addAttribute("productType", productTypeName);
     	return "tiles_product";
     }
     
     @GetMapping("/add")
-    public String addProduct(Model model) {
+    public String addProduct(@RequestParam(value = "error", required = false) String error, Model model) {
     	Product product = new Product();
         model.addAttribute("product", product);
         model.addAttribute("productTypes", productTypeService.getTypes());
-        
+        model.addAttribute("error", error);
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
@@ -116,9 +118,7 @@ public class ProductController {
     @PostMapping("/save")
     public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult br, @RequestParam("typeName") String typeName, Model model) {
     	if (br.hasErrors()) {
-    		System.out.println("has errors");
     		model.addAttribute("productTypes", productTypeService.getTypes());
-    		
         	model.addAttribute("role",utilities.getCurrentUserMajorRole());
     		try {
     	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
@@ -130,8 +130,15 @@ public class ProductController {
     		return "tiles_product_form";
     	} else {
 	    	product.setProductType(productTypeService.getProductTypeFromName(typeName));
-	    	productService.saveProduct(product);
-	    	return "redirect:/product/list";
+	    	try {
+		    	productService.getProductByName(product.getName());
+		    	model.addAttribute("error", "Product already inserted");
+    			return "redirect:/product/add";
+	    	} catch (Exception e) {
+		    	productService.saveProduct(product);
+		    	productService.update(product);
+		    	return "redirect:/product/list";
+	    	}
     	}
     }
     
@@ -155,5 +162,16 @@ public class ProductController {
     	Product product = productService.getProductById(id);
     	productService.delete(product);
         return "redirect:/product/list";
+    }
+    
+    @GetMapping("/autocomplete")
+    @ResponseBody
+    public List<String> searchAutocomplete(@RequestParam(value="term", required = false, defaultValue="") String term) {
+    	List<String> suggestions = new ArrayList<String>();
+    	List<Product> productByTerm = productService.findProducts(term);
+    	for (Product product : productByTerm) {
+			suggestions.add(product.getName());
+		}
+    	return suggestions;
     }
 }

@@ -57,6 +57,13 @@
 	        	</c:forEach>
 			</select>
   </div>
+  <c:if test="${not empty error}">
+			<div class="py-3">
+				<div class="alert alert-danger" role="alert">
+				  ${error}
+				</div>
+			</div>
+		</c:if>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form:form>
     </div>

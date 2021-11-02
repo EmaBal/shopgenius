@@ -11,6 +11,8 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import it.univpm.shopgenius.model.entities.Product;
+import it.univpm.shopgenius.model.entities.ProductType;
+import it.univpm.shopgenius.model.entities.User;
 
 @Repository
 public class ProductDAOImpl extends DefaultDao implements ProductDAO {
@@ -33,12 +35,15 @@ public class ProductDAOImpl extends DefaultDao implements ProductDAO {
 	}
 	
 	@Override
-	public Product create(String name, float price, int quantity, String locationDetail) {
+	public Product create(String name, float price, int quantity, String locationDetail, ProductType pType) {
+		if (name == null || name.length() == 0 || price < 0 || quantity < 0 || locationDetail == null || locationDetail.length() == 0)
+			throw new RuntimeException("Empty fields not allowed");
 		Product p = new Product();
 		p.setName(name);
 		p.setPrice(price);
 		p.setQuantity(quantity);
 		p.setLocationDetail(locationDetail);
+		p.setProductType(pType);
 		this.getSession().save(p);
 		return p;
 	}
@@ -46,7 +51,8 @@ public class ProductDAOImpl extends DefaultDao implements ProductDAO {
 	@Override
 	public void delete(Product product) {
 		 Session currentSession = this.getSession();
-	     currentSession.delete(product);
+		 if(product.getName() != null)
+			 currentSession.delete(product);
 	}
 	
 	@Override
@@ -70,5 +76,15 @@ public class ProductDAOImpl extends DefaultDao implements ProductDAO {
         cq.select(root);
         Query query = session.createQuery(cq);
         return query.getResultList();
+    }
+    
+    @Override
+    public List<Product> findProducts(String searchTerm) {
+    	CriteriaBuilder cb = this.getSession().getCriteriaBuilder();
+    	CriteriaQuery<Product> cq = cb.createQuery(Product.class);
+    	Root <Product> root = cq.from(Product.class);
+    	cq.select(root).where(cb.like(root.get("name"), searchTerm+"%"));
+    	Query query = this.getSession().createQuery(cq);
+    	return query.getResultList();
     }
 }

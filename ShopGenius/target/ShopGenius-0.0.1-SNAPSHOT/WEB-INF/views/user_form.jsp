@@ -36,7 +36,6 @@
         <form:input path="email" cssClass="form-control" />  <form:errors path="email" cssStyle="color: #ff0000;"/>
        </div>
       </div>
-      
        <div class="mb-3">
        <label for="password" class="col-md-3 control-label">Password</label>
        <div class="col-md-9">
@@ -57,6 +56,13 @@
 		  <label class="form-check-label" for="makeAdmin">Admin</label>
 		</div>
       </c:if>
+      <c:if test="${not empty error}">
+			<div class="py-3 col-md-9">
+				<div class="alert alert-danger" role="alert">
+				  ${error}
+				</div>
+			</div>
+		</c:if>
 		<br/>
          <button type="submit" class="btn btn-primary">Submit</button>
 

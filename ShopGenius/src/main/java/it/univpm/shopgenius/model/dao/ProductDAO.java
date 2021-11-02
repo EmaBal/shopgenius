@@ -5,14 +5,13 @@ import java.util.List;
 import org.hibernate.Session;
 
 import it.univpm.shopgenius.model.entities.Product;
+import it.univpm.shopgenius.model.entities.ProductType;
 
 public interface ProductDAO {
 	
 	public Product getProductById(int id);
 	
 	public Product getProductByName(String name);
-	
-	public Product create(String name, float price, int quantity, String locationDetail);
 
 	public void delete(Product produdct);
 	
@@ -24,4 +23,8 @@ public interface ProductDAO {
 	
 	Session getSession();
 	public void setSession(Session session);
+
+	public Product create(String name, float price, int quantity, String locationDetail, ProductType pType);
+
+	public List<Product> findProducts(String searchTerm);
 }
