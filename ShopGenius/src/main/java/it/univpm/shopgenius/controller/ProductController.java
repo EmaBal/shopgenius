@@ -103,7 +103,7 @@ public class ProductController {
     	Product product = productService.getProductById(id);
         model.addAttribute("product", product);
         model.addAttribute("productTypes", productTypeService.getTypes());
-        
+        model.addAttribute("isUpdating", true);
     	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
@@ -116,7 +116,7 @@ public class ProductController {
     }
     
     @PostMapping("/save")
-    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult br, @RequestParam("typeName") String typeName, Model model) {
+    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult br, @RequestParam("typeName") String typeName, @RequestParam(value="isUpdating", required = false, defaultValue = "false") boolean isUpdating, Model model) {
     	if (br.hasErrors()) {
     		model.addAttribute("productTypes", productTypeService.getTypes());
         	model.addAttribute("role",utilities.getCurrentUserMajorRole());
@@ -130,11 +130,17 @@ public class ProductController {
     		return "tiles_product_form";
     	} else {
 	    	product.setProductType(productTypeService.getProductTypeFromName(typeName));
-	    	try {
-		    	productService.getProductByName(product.getName());
-		    	model.addAttribute("error", "Product already inserted");
-    			return "redirect:/product/add";
-	    	} catch (Exception e) {
+	    	if (isUpdating == false) {
+		    	try {
+			    	productService.getProductByName(product.getName());
+			    	model.addAttribute("error", "Product already inserted");
+	    			return "redirect:/product/add";
+		    	} catch (Exception e) {
+			    	productService.saveProduct(product);
+			    	productService.update(product);
+			    	return "redirect:/product/list";
+		    	}
+	    	} else {
 		    	productService.saveProduct(product);
 		    	productService.update(product);
 		    	return "redirect:/product/list";

@@ -64,6 +64,7 @@
 			</div>
 		</c:if>
 		<br/>
+<%-- 		<input type="hidden" name="isUpdating" value="${isUpdating}"/> --%>
          <button type="submit" class="btn btn-primary">Submit</button>
 
      </form:form>

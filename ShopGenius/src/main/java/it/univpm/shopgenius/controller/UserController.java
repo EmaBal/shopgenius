@@ -58,11 +58,12 @@ public class UserController {
 		User user = new User();
 		model.addAttribute("user", user);
 		model.addAttribute("error", error);
+		model.addAttribute("update_role", null);
         return "tiles_register";
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult br, @RequestParam(value = "makeAdmin", required = false) boolean makeAdmin, @RequestParam(value = "updateRole", required = false) String updateRole, Model model) {
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult br, @RequestParam(value = "makeAdmin", required = false) boolean makeAdmin, @RequestParam(value = "updateRole", required = false, defaultValue="") String updateRole, Model model) {
     	if (br.hasErrors()) {
         	model.addAttribute("role",utilities.getCurrentUserMajorRole());
     		try {
@@ -74,7 +75,7 @@ public class UserController {
     			}
     		return "tiles_register";
     	} else {
-	    	if (updateRole != null) {
+	    	if (updateRole != null && !updateRole.equals("") ) {
 	    		userService.saveUser(user);
 		    	if (makeAdmin && updateRole.equals("user")) {
 		    		userService.addRole(user, "admin");
