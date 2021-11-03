@@ -30,14 +30,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private RoleDAO roleDAO;
 
-//	public RoleDAO getRoleDAO() {
-//		return roleDAO;
-//	}
-//
-//	public void setRoleDAO(RoleDAO roleDAO) {
-//		this.roleDAO = roleDAO;
-//	}
-
 	@Transactional(readOnly = true)
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

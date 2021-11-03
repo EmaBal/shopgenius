@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult br, @RequestParam(value = "makeAdmin", required = false) boolean makeAdmin, @RequestParam(value = "updateRole", required = false, defaultValue="") String updateRole, Model model) {
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult br, @RequestParam(value = "makeAdmin", required = false) boolean makeAdmin, @RequestParam(value = "updateRole", required = false, defaultValue="") String updateRole, @RequestParam(value = "oldUserEmail", required=false) String oldUserEmail, Model model) {
     	if (br.hasErrors()) {
         	model.addAttribute("role",utilities.getCurrentUserMajorRole());
     		try {
@@ -76,18 +76,30 @@ public class UserController {
     		return "tiles_register";
     	} else {
 	    	if (updateRole != null && !updateRole.equals("") ) {
-	    		userService.saveUser(user);
-		    	if (makeAdmin && updateRole.equals("user")) {
-		    		userService.addRole(user, "admin");
-		    		userService.update(user);
-		    	} else if (makeAdmin) {
-		    		userService.addRole(user, "admin");
-		    		userService.update(user);
-		    	}
-		    	if (!makeAdmin && updateRole.equals("admin")) {
-		    		userService.removeRole(user, "admin");
-		    		userService.update(user);
-		    	}
+	    		if (oldUserEmail.equals(user.getEmail())) {
+		    		userService.saveUser(user);
+			    	if (makeAdmin && updateRole.equals("user")) {
+			    		userService.addRole(user, "admin");
+			    		userService.update(user);
+			    	} else if (makeAdmin) {
+			    		userService.addRole(user, "admin");
+			    		userService.update(user);
+			    	}
+			    	if (!makeAdmin && updateRole.equals("admin")) {
+			    		userService.removeRole(user, "admin");
+			    		userService.update(user);
+			    	}
+	    		} else {
+		    		try {
+		    			userService.findUserByEmail(user.getEmail());
+		    			model.addAttribute("error", "Email already used");
+		    			model.addAttribute("userId", user.getId());
+		    			return "redirect:/user/updateForm";
+		    		} catch (Exception e) {
+		    			userService.saveUser(user);
+			    		userService.update(user);
+		    		}
+	    		}
 	    	} else {
 	    		try {
 	    			userService.findUserByEmail(user.getEmail());
@@ -95,7 +107,7 @@ public class UserController {
 	    			return "redirect:/user/showForm";
 	    		} catch (Exception e) {
 	    			userService.saveUser(user);
-		    		userService.update(user);	    			
+		    		userService.update(user);
 	    		}
 	    	}
 	        return "redirect:/";

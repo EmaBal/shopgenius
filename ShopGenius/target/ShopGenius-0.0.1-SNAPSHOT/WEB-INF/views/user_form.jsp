@@ -29,7 +29,6 @@
         <form:input path="lastName" cssClass="form-control" />  <form:errors path="lastName" cssStyle="color: #ff0000;"/>
        </div>
       </div>
-
       <div class="mb-3">
        <label for="email" class="col-md-3 control-label">Email</label>
        <div class="col-md-9">
@@ -64,7 +63,7 @@
 			</div>
 		</c:if>
 		<br/>
-<%-- 		<input type="hidden" name="isUpdating" value="${isUpdating}"/> --%>
+		<input type="hidden" name="oldUserEmail" value="${user.email}"/>
          <button type="submit" class="btn btn-primary">Submit</button>
 
      </form:form>

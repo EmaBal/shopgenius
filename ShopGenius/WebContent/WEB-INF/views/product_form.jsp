@@ -21,7 +21,7 @@
 <form:hidden path="id" />
   <div class="mb-3">
     <label for="name" class="form-label">Product name</label>
-    <form:input type="name" path="name" class="form-control" id="name" /> <form:errors path="name" cssStyle="color: #ff0000;"/>
+    	<form:input type="name" path="name" class="form-control" id="name" /> <form:errors path="name" cssStyle="color: #ff0000;"/>
   </div>
   <div class="mb-3">
     <label for="price" class="form-label">Price (&#8364;)</label>
@@ -65,6 +65,7 @@
 			</div>
 		</c:if>
 	<input type="hidden" name="isUpdating" value="${isUpdating}"/>
+	<input type="hidden" name="oldProductName" value="${product.name}"/>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form:form>
     </div>

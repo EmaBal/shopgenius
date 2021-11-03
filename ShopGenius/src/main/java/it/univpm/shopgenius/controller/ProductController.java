@@ -116,7 +116,7 @@ public class ProductController {
     }
     
     @PostMapping("/save")
-    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult br, @RequestParam("typeName") String typeName, @RequestParam(value="isUpdating", required = false, defaultValue = "false") boolean isUpdating, Model model) {
+    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult br, @RequestParam("typeName") String typeName, @RequestParam(value="isUpdating", required = false, defaultValue = "false") boolean isUpdating, @RequestParam(value="oldProductName", required=false) String oldProductName, Model model) {
     	if (br.hasErrors()) {
     		model.addAttribute("productTypes", productTypeService.getTypes());
         	model.addAttribute("role",utilities.getCurrentUserMajorRole());
@@ -141,9 +141,22 @@ public class ProductController {
 			    	return "redirect:/product/list";
 		    	}
 	    	} else {
-		    	productService.saveProduct(product);
-		    	productService.update(product);
-		    	return "redirect:/product/list";
+	    		if (oldProductName.equals(product.getName())) {
+			    	productService.saveProduct(product);
+			    	productService.update(product);
+			    	return "redirect:/product/list";
+	    		} else {
+	    			try {
+				    	productService.getProductByName(product.getName());
+				    	model.addAttribute("error", "Product already inserted");
+				    	model.addAttribute("productId", product.getId());
+		    			return "redirect:/product/update";
+			    	} catch (Exception e) {
+				    	productService.saveProduct(product);
+				    	productService.update(product);
+				    	return "redirect:/product/list";
+			    	}
+	    		}
 	    	}
     	}
     }
