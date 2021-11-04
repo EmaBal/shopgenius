@@ -26,12 +26,15 @@ public class ProductDAOImpl extends DefaultDao implements ProductDAO {
 	
 	@Override
 	public Product getProductByName(String name) {
-    	CriteriaBuilder cb = this.getSession().getCriteriaBuilder();
-    	CriteriaQuery<Product> cq = cb.createQuery(Product.class);
-    	Root <Product> root = cq.from(Product.class);
-    	cq.select(root).where(cb.equal(root.get("name"), name));
-    	Query query = this.getSession().createQuery(cq);
-    	return (Product)query.getSingleResult();
+//    	CriteriaBuilder cb = this.getSession().getCriteriaBuilder();
+//    	CriteriaQuery<Product> cq = cb.createQuery(Product.class);
+//    	Root <Product> root = cq.from(Product.class);
+//    	cq.select(root).where(cb.equal(root.get("name"), name));
+//    	Query query = this.getSession().createQuery(cq);
+//    	return (Product)query.getSingleResult();
+		Query query = this.getSession().createNamedQuery("Product_GetProductByName", Product.class);
+		query.setParameter("name", name);
+		return (Product)query.getSingleResult();
 	}
 	
 	@Override
@@ -80,11 +83,14 @@ public class ProductDAOImpl extends DefaultDao implements ProductDAO {
     
     @Override
     public List<Product> findProducts(String searchTerm) {
-    	CriteriaBuilder cb = this.getSession().getCriteriaBuilder();
-    	CriteriaQuery<Product> cq = cb.createQuery(Product.class);
-    	Root <Product> root = cq.from(Product.class);
-    	cq.select(root).where(cb.like(root.get("name"), searchTerm+"%"));
-    	Query query = this.getSession().createQuery(cq);
-    	return query.getResultList();
+//    	CriteriaBuilder cb = this.getSession().getCriteriaBuilder();
+//    	CriteriaQuery<Product> cq = cb.createQuery(Product.class);
+//    	Root <Product> root = cq.from(Product.class);
+//    	cq.select(root).where(cb.like(root.get("name"), searchTerm+"%"));
+//    	Query query = this.getSession().createQuery(cq);
+//    	return query.getResultList();
+		Query query = this.getSession().createNamedQuery("Product_FindProductsBySearchTerm", Product.class);
+		query.setParameter("name", searchTerm);
+		return (List<Product>)query.getResultList();
     }
 }

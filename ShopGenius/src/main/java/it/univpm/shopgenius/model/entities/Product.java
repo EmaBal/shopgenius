@@ -19,6 +19,17 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
+@NamedQueries({
+@NamedQuery(
+		name="Product_GetProductByName",
+		query="from Product where name = :name"),
+@NamedQuery(
+		name="Product_FindProductsBySearchTerm",
+		query="from Product where name like concat(:name,'%')")
+})
 
 @Entity
 @Table(name = "products")
