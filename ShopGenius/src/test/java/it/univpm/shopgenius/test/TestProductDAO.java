@@ -1,4 +1,4 @@
-package it.univpm.shopgenius.test.model.dao;
+package it.univpm.shopgenius.test;
 
 import static org.assertj.core.api.Assertions.fail;
 import static org.junit.Assert.assertNotSame;
@@ -18,7 +18,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import it.univpm.shopgenius.model.dao.ProductDAO;
 import it.univpm.shopgenius.model.entities.Product;
-import it.univpm.shopgenius.test.config.AppContextTest;
 
 class TestProductDAO {
 

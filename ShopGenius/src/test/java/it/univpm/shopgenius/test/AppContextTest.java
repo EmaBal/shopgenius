@@ -1,4 +1,4 @@
-package it.univpm.shopgenius.test.config;
+package it.univpm.shopgenius.test;
 
 import java.util.Properties;
 
