@@ -11,9 +11,10 @@
 	});
 </script>
 <body>
-<div class="container my-5">
+<div style="background-image: url('${pageContext.request.contextPath}/resources/img/background_cover3.jpg'); height: 100vh; background-size: contain; background-repeat: no-repeat;">
+<div class="container">
 <div class="row">
-<h2>Search Product:</h2>
+<h2 class="mt-5 text-center">Search Product</h2>
 </div><br/>
 <div class="row">
 <form class="d-flex" action="product/search" method = "POST">
@@ -30,6 +31,6 @@
 	</div>
 </c:if>
 </div>
-
+</div>
 </body>
 </html>
