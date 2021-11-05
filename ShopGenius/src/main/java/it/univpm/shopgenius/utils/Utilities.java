@@ -1,6 +1,8 @@
 package it.univpm.shopgenius.utils;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,13 +23,24 @@ public class Utilities {
 	public String getCurrentUserMajorRole() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Collection<SimpleGrantedAuthority> auth = (Collection<SimpleGrantedAuthority>) authentication.getAuthorities();
+		List<String> authList = new ArrayList<String>();
 		for (SimpleGrantedAuthority r: auth) {
-			if (r.getAuthority().equals("admin")) {
-				return "admin";
-			} else if (r.getAuthority().equals("user")) {
-				return "user";
-			}
+			authList.add(r.getAuthority());
+//			if (r.getAuthority().equals("admin")) {
+//				return "admin";
+//			} else if (r.getAuthority().equals("employee")) {
+//				return "employee";
+//				} else if (r.getAuthority().equals("user")) {
+//						return "user";
+//					}
 		}
+		if (authList.contains("admin")) {
+			return "admin";
+			} else if (authList.contains("employee")) {
+				return "employee";
+				}  else if (authList.contains("user")) {
+					return "user";
+				}
 		return "anonymous";
 	}
 

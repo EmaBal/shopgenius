@@ -18,10 +18,14 @@ public class ProductTypeDAOImpl extends DefaultDao implements ProductTypeDAO {
 	
 	@Override
 	public ProductType create(String name) {
-		ProductType pt = new ProductType();
-		pt.setTypeName(name);
-		this.getSession().save(pt);
-		return pt;
+			if (name == null || name.equals("")) {
+				throw new RuntimeException("Empty name not allowed");
+			} else {
+			ProductType pt = new ProductType();
+			pt.setTypeName(name);
+			this.getSession().save(pt);
+			return pt;
+		}
 	}
 	
 	@Override

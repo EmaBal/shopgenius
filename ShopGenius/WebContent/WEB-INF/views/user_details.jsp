@@ -4,7 +4,7 @@
 <body>
  <div class="container">
   <div><br/>
-   <h2 class="text-capitalize">User Details</h2>
+   <h2 class="text-capitalize"><i class="bi bi-person-circle text-capitalize"></i> User Details</h2>
 	   
    <hr />
     
@@ -24,6 +24,14 @@
       <tr>
        <td><b>Password</b></td>
        <td>${user.password}</td>
+      </tr>
+	   <tr>
+       <td><b>Roles</b></td>
+       <td>
+       <c:forEach var="role" items="${user.getRoles()}">
+        ${role.getName()} 
+		</c:forEach>
+		</td>
       </tr>
      </table>
      

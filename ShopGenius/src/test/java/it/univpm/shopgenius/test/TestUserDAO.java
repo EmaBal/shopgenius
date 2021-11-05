@@ -100,10 +100,16 @@ class TestUserDAO {
 
 		userDAO.setSession(s);
 
+		s.beginTransaction();
+		
 		User newUser = userDAO.create("firstname", "lastname", "email", "password", true);
 
+		s.getTransaction().commit();
+		
 		try {
+			s.beginTransaction();
 			User newUser2 = userDAO.create(newUser.getFirstName(), newUser.getLastName(), "newemail", "newpassword", true);
+			s.getTransaction().commit();
 			assertTrue(true);
 		} catch (Exception e) {
 			fail("Unexpected exception creating singer with duplicate name: " + e.getMessage());
@@ -120,8 +126,10 @@ class TestUserDAO {
 
 		userDAO.setSession(s);
 
+		s.beginTransaction();
 		List<User> allUsers = userDAO.getUsers();
-
+		s.getTransaction().commit();
+		
 		assertEquals(allUsers.size(), 0);
 	}
 	
@@ -136,11 +144,18 @@ class TestUserDAO {
 
 		userDAO.setSession(s);
 
+		
+		
 		for (int i = 0; i < n; i++) {
+			s.beginTransaction();
 			userDAO.create("firstname" + i, "lastname" + i, "email" + i, "password" + i, true);
-
+			s.getTransaction().commit();
+			s.beginTransaction();
 			List<User> allSingers = userDAO.getUsers();
+			s.getTransaction().commit();
+			
 			assertEquals(allSingers.size(), i + 1);
+			
 		}
 	}
 
@@ -196,10 +211,18 @@ class TestUserDAO {
 
 		userDAO.setSession(s);
 
+		
+		
 		for (int i = 0; i < n; i++) {
+			s.beginTransaction();
 			User inserted = userDAO.create("firstname" + i, "lastname" + i, "email" + i, "password" + i, true);
 
+			s.getTransaction().commit();
+			s.beginTransaction();
+			
 			User found = userDAO.getUser(inserted.getId());
+			
+			s.getTransaction().commit();
 			
 			assertSame(inserted, found);
 		}
@@ -211,9 +234,13 @@ class TestUserDAO {
 
 		userDAO.setSession(s);
 
-		User inserted = userDAO.create("firsname", "lastname", "email", "password", true);
 		
+		s.beginTransaction();
+		User inserted = userDAO.create("firsname", "lastname", "email", "password", true);
+		s.getTransaction().commit();
+		s.beginTransaction();
 		User found = userDAO.getUser(inserted.getId() + 10);
+		s.getTransaction().commit();
 		
 		assertNull(found);
 	}
@@ -224,7 +251,11 @@ class TestUserDAO {
 
 		userDAO.setSession(s);
 
+		
+		s.beginTransaction();
 		User inserted = userDAO.create("firsname", "lastname", "email", "password", true);
+		s.getTransaction().commit();
+		s.beginTransaction();
 		
 		User updated = new User();
 		updated.setId(inserted.getId());
@@ -234,8 +265,10 @@ class TestUserDAO {
 		updated.setPassword("password1");
 		
 		updated = userDAO.update(updated);
-		
+		s.getTransaction().commit();
+		s.beginTransaction();
 		User found = userDAO.getUser(inserted.getId());
+		s.getTransaction().commit();
 		
 		assertSame(inserted, updated);
 		assertSame(updated, found);
@@ -247,8 +280,11 @@ class TestUserDAO {
 		Session s = sf.openSession();
 
 		userDAO.setSession(s);
-
+		
+		s.beginTransaction();
 		User inserted = userDAO.create("firsname", "lastname", "email", "password", true);
+		s.getTransaction().commit();
+		s.beginTransaction();
 		
 		User updated = new User();
 		updated.setId(inserted.getId());
@@ -258,8 +294,10 @@ class TestUserDAO {
 		updated.setPassword("password1");
 		
 		userDAO.update(updated);
-		
+		s.getTransaction().commit();
+		s.beginTransaction();
 		User found = userDAO.getUser(inserted.getId());
+		s.getTransaction().commit();
 		
 		assertNotNull(found);
 		assertEquals(found, inserted);
@@ -310,14 +348,20 @@ class TestUserDAO {
 		Session s = sf.openSession();
 
 		userDAO.setSession(s);
-				
+		
+		s.beginTransaction();
 		User fake = new User();
 		fake.setId(100);
+		s.getTransaction().commit();
 		
 		assertNull(userDAO.getUser(fake.getId()));
 		
 		try {
+			
+			s.beginTransaction();
 			userDAO.deleteUser(fake.getId());
+			s.getTransaction().commit();
+			
 			assertTrue(true);
 		} catch (Exception e) {
 			fail("Unexpected exception when deleting fake user");

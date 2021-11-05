@@ -11,10 +11,11 @@
 	});
 </script>
 <body>
-<div style="background-image: url('${pageContext.request.contextPath}/resources/img/background_cover3.jpg'); height: 100vh; background-size: contain; background-repeat: no-repeat;">
+<%-- <div style="background-image: url('${pageContext.request.contextPath}/resources/img/background_cover3.jpg'); height: 100vh; background-size: contain; background-repeat: no-repeat;"> --%>
+<img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/background_cover5.jpg"/>
 <div class="container">
 <div class="row">
-<h2 class="mt-5 text-center">Search Product</h2>
+<h2 class="mt-5 text-center"><i class="bi bi-search"></i> Search Product</h2>
 </div><br/>
 <div class="row">
 <form class="d-flex" action="product/search" method = "POST">
@@ -30,7 +31,6 @@
 		</div>
 	</div>
 </c:if>
-</div>
 </div>
 </body>
 </html>

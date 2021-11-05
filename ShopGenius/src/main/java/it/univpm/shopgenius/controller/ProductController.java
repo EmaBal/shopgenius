@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import it.univpm.shopgenius.model.entities.Product;
 import it.univpm.shopgenius.model.entities.ProductType;
 import it.univpm.shopgenius.model.entities.User;
+import it.univpm.shopgenius.services.FavoriteService;
 import it.univpm.shopgenius.services.ProductService;
 import it.univpm.shopgenius.services.ProductTypeService;
 import it.univpm.shopgenius.services.UserService;
@@ -37,6 +38,9 @@ public class ProductController {
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private FavoriteService favoriteService;
 
     private Utilities utilities = new Utilities();
     
@@ -57,7 +61,7 @@ public class ProductController {
     public String showProduct(@RequestParam("productName") String productName, Model model) {
     	String currentUserRole = utilities.getCurrentUserMajorRole();
     	Product product = productService.getProductByName(productName);
-		if (currentUserRole.equals("admin") || currentUserRole.equals("user")) {
+		if (currentUserRole.equals("admin") || currentUserRole.equals("employee") || currentUserRole.equals("user")) {
 			String email = utilities.getCurrentUserName();
 			User user = userService.findUserByEmail(email);
 			Set<Product> products = user.getProducts();
@@ -179,6 +183,10 @@ public class ProductController {
     @GetMapping("/delete")
     public String deleteProduct(@RequestParam("productId") int id) {
     	Product product = productService.getProductById(id);
+    	for(User u: product.getUsers()) {
+    		favoriteService.delete(u, product);
+    		userService.update(u);
+    	}
     	productService.delete(product);
         return "redirect:/product/list";
     }

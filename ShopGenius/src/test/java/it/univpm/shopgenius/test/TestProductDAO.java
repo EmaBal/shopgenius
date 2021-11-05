@@ -91,7 +91,7 @@ class TestProductDAO {
 	}
 	
 	@Test
-	void testCreateSingerDuplicateNames() {
+	void testCreateProductDuplicateNames() {
 		/**
 		 * We test that it is possible to create two singers with same name and surname
 		 */
@@ -100,19 +100,20 @@ class TestProductDAO {
 
 		productDAO.setSession(s);
 
+		
+		s.beginTransaction();
 		Product newProduct1 = productDAO.create("product", 1, 1, "A1", null);
-
+		s.getTransaction().commit();
 		try {
 			Product newProduct2 = productDAO.create(newProduct1.getName(), 2, 2, "A2", null);
 			fail("Shoudn't be able to create 2 products with same name");
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-
 	}
 	
 	@Test
-	void testNoUsersAtBeginning() {
+	void testNoProductsAtBeginning() {
 		/**
 		 * Check that there are no users when the application loads
 		 */
@@ -121,8 +122,11 @@ class TestProductDAO {
 
 		productDAO.setSession(s);
 
+		
+		s.beginTransaction();
 		List<Product> allProducts = productDAO.getProducts();
-
+		s.getTransaction().commit();
+		
 		assertEquals(allProducts.size(), 0);
 	}
 	
@@ -138,9 +142,14 @@ class TestProductDAO {
 		productDAO.setSession(s);
 
 		for (int i = 0; i < n; i++) {
+			
+			s.beginTransaction();
 			productDAO.create("product" + i, (float)i, i, "A" + i, null);
-
+			s.getTransaction().commit();
+			s.beginTransaction();
 			List<Product> allUsers = productDAO.getProducts();
+			s.getTransaction().commit();
+			
 			assertEquals(allUsers.size(), i + 1);
 		}
 	}
@@ -198,9 +207,13 @@ class TestProductDAO {
 		productDAO.setSession(s);
 
 		for (int i = 0; i < n; i++) {
+			
+			s.beginTransaction();
 			Product inserted = productDAO.create("prod" + i, i, i, "A" + i, null);
-
+			s.getTransaction().commit();
+			s.beginTransaction();
 			Product found = productDAO.getProductById(inserted.getId());
+			s.getTransaction().commit();
 			
 			assertSame(inserted, found);
 		}
@@ -211,10 +224,13 @@ class TestProductDAO {
 		Session s = sf.openSession();
 
 		productDAO.setSession(s);
-
-		Product inserted = productDAO.create("prod", 1, 1, "A1", null);
 		
+		s.beginTransaction();
+		Product inserted = productDAO.create("prod", 1, 1, "A1", null);
+		s.getTransaction().commit();
+		s.beginTransaction();
 		Product found = productDAO.getProductById(inserted.getId() + 10);
+		s.getTransaction().commit();
 		
 		assertNull(found);
 	}
@@ -248,21 +264,27 @@ class TestProductDAO {
 	}
 	
 	@Test
-	void testDeleteNonExistingUserDoesNotCauseError() {
+	void testDeleteNonExistingProductDoesNotCauseError() {
 		/**
 		 * A user that does not exist can be deleted without begin noticed to the callee
 		 */
 		Session s = sf.openSession();
 
 		productDAO.setSession(s);
-
+		
+		s.beginTransaction();
 		Product fake = new Product();
 		fake.setId(100);
-
+		s.getTransaction().commit();
+		
 		assertNull(productDAO.getProductById(fake.getId()));
 
 		try {
+			
+			s.beginTransaction();
 			productDAO.delete(fake);
+			s.getTransaction().commit();
+			
 			assertTrue(true);
 		} catch (Exception e) {
 			fail("Unexpected exception when deleting fake user");

@@ -43,17 +43,35 @@
       </div>
       <c:if test="${role eq 'admin'}">
       <input type="hidden" name="updateRole" value="${update_role}"/>
-      	<div class="mb-3 form-check">
-      	<c:choose>
-		      <c:when test="${update_role eq 'admin'}">
-		      	<input type="checkbox" class="form-check-input" id="makeAdmin" name="makeAdmin" checked>
-		      </c:when>
-		      <c:otherwise>
-		      	<input type="checkbox" class="form-check-input" id="makeAdmin" name="makeAdmin">
-		      </c:otherwise>
-	      </c:choose>
-		  <label class="form-check-label" for="makeAdmin">Admin</label>
-		</div>
+      <div class="mb-3">
+    <c:choose>
+	    <c:when test="${empty user.email}">
+	    	<label for="role" class="form-label">Role</label>
+	    </c:when>
+	    <c:otherwise>
+	    	<label for="role" class="form-label">Role <i>(current: ${update_role})</i></label>
+	    </c:otherwise>
+    </c:choose>
+    <select class="form-select text-capitalize" name="roleName" id="roleName">
+				<c:forEach var="r" items="${roleNamesList}">
+				<c:choose>
+	      			<c:when test="${not empty user.email}">
+						<c:choose>
+							<c:when test="${r eq update_role}">
+								<option selected value="${r}"> ${r} </option>
+							</c:when>
+							<c:otherwise>
+								<option value="${r}"> ${r} </option>
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:otherwise>
+						<option value="${r}"> ${r} </option>
+					</c:otherwise>
+				</c:choose>
+	        	</c:forEach>
+			</select>
+  </div>
       </c:if>
       <c:if test="${not empty error}">
 			<div class="py-3 col-md-9">

@@ -2,10 +2,12 @@ C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\mode
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\config\AppContext.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\config\AppInitializer.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\ProductTypeServiceImpl.java
+C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\RoleServiceImpl.java
+C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\utils\LoadInitialData.java
+C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\RoleService.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\dao\RoleDAOImpl.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\controller\SecurityController.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\entities\ProductType.java
-C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\test\LoadDataTest.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\controller\HomeController.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\model\entities\Role.java
 C:\Users\ema-b\git\shopgenius\ShopGenius\src\main\java\it\univpm\shopgenius\services\FavoriteService.java

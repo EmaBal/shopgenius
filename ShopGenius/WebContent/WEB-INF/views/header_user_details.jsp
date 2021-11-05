@@ -38,6 +38,15 @@
           <a class="nav-link" href="/ShopGenius/favorites">Favorites</a>
         </li>
         </c:when>
+        <c:when test="${role eq 'employee'}">
+        <li class="nav-item">
+          <a class="nav-link" href="/ShopGenius/product/list">Manage Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/ShopGenius/favorites">Favorites</a>
+        </li>
+        
+        </c:when>
         </c:choose>
       </ul>
       <c:choose>
