@@ -1,8 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script>
+function capitalizeFirstLetter(string) {
+	  return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+capitalizeFirstLetter(${tempProduct.name});
+capitalizeFirstLetter(${tempProduct.productType.typeName});
+</script>
 
 <body>
+<script>
+
+
+</script>
  <div class="container">
   <div class="col-md-offset-1 col-md-10"><br/>
    <h2>Manage Products</h2>
@@ -39,10 +50,10 @@
 
        <tr>
         <%-- <td class="text-capitalize">${tempProduct.name}</td> --%>
-        <td><a href="${viewDetails}" class="text-capitalize" style="text-decoration: none">${tempProduct.name}</a></td>
+        <td><a href="${viewDetails}" style="text-decoration: none">${tempProduct.name}</a></td>
         <td>${tempProduct.price} &#8364;</td>
         <td>${tempProduct.quantity}</td>
-        <td class="text-capitalize">${tempProduct.productType.typeName}</td>
+        <td>${tempProduct.productType.typeName}</td>
         <td>${tempProduct.locationDetail}</td>
 
         

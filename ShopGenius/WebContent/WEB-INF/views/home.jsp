@@ -31,6 +31,7 @@
 		</div>
 	</div>
 </c:if>
+<h2 class="mt-5 text-center">or browse through your <a href="/ShopGenius/favorites" style="text-decoration: none;"><i class="bi bi-star-fill"></i> Favorites</a></h2>
 </div>
 </body>
 </html>

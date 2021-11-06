@@ -2,20 +2,6 @@
  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<script type="text/javascript">
-function checkOther() {
-	  var checkBox = document.getElementById("makeAdmin");
-	  var subCheckBox = document.getElementById("makeEmp");
-	  if (checkBox.checked == true){
-	    subCheckBox.checked = true;
-	    subCheckBox.disabled = true;
-	  } else {
-	    subCheckBox.disabled = false;
-	  }
-}
-</script>
 <body>
  <div class="container">
   <div class="col-md-offset-2 col-md-7"><br/>
@@ -86,55 +72,6 @@ function checkOther() {
 	        	</c:forEach>
 			</select>
   </div>
-      	<!-- <div class="mb-3 form-check"> -->
-<%--       	<c:choose>
-      	
-		      <c:when test="${update_role eq 'admin'}">
-		      <div class="mb-3 form-check">
-		      	<input type="checkbox" class="form-check-input" id="makeAdmin" name="makeAdmin" checked onclick="checkOther">
-		      			  <label class="form-check-label" for="makeAdmin">Admin</label>
-				</div>
-				<div class="mb-3 form-check">
-		      	<input type="checkbox" class="form-check-input" id="makeEmp" name="makeEmp" checked>
-		      			  <label class="form-check-label" for="makeEmp">Employee</label>
-				</div>
-		      </c:when>
-		      <c:otherwise>
-		      	<div class="mb-3 form-check">
-		      	<input type="checkbox" class="form-check-input" id="makeAdmin" name="makeAdmin" onclick="checkOther()">
-		      			  <label class="form-check-label" for="makeAdmin">Admin</label>
-				</div>
-				<c:choose>
-		      	<c:when test="${update_role eq 'employee'}">
-		      	<div class="mb-3 form-check">
-		      	<input type="checkbox" class="form-check-input" id="makeEmp" name="makeEmp" checked>
-		      			  <label class="form-check-label" for="makeEmp">Employee</label>
-				</div>
-		      </c:when>
-		      <c:otherwise>
-		      <div class="mb-3 form-check">
-		      	<input type="checkbox" class="form-check-input" id="makeEmp" name="makeEmp">
-		      			  <label class="form-check-label" for="makeEmp">Employee</label>
-				</div>
-		      </c:otherwise>
-		      
-	      </c:choose>
-				</c:otherwise>
-				</c:choose> --%>
-				
-<!-- 		  <label class="form-check-label" for="makeAdmin">Admin</label>
-		</div> -->
-      	<%-- <div class="mb-3 form-check">
-      	<c:choose>
-		      <c:when test="${update_role eq 'employee'}">
-		      	<input type="checkbox" class="form-check-input" id="makeEmp" name="makeEmp" checked>
-		      </c:when>
-		      <c:otherwise>
-		      	<input type="checkbox" class="form-check-input" id="makeEmp" name="makeEmp">
-		      </c:otherwise>
-	      </c:choose>
-		  <label class="form-check-label" for="makeEmp">Employee</label>
-		</div> --%>
       </c:if>
       <c:if test="${not empty error}">
 			<div class="py-3 col-md-9">

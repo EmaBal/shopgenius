@@ -62,9 +62,10 @@ public class LoadInitialData {
 				
 				Product eggs = productDAO.create("Eggs 6 pz", 4, 20, "A1", food);
 				Product eggs2 = productDAO.create("Eggs 4 pz", 3, 20, "A2", food);
-				Product coke = productDAO.create("Coca-cola", (float)1.99, 50, "B3", beverages);
-				Product phone = productDAO.create("Xiaomi Redmi Note 10 Pro", (float)299.99, 5, "C2", electronics);
-				Product soap = productDAO.create("Liquid soap", (float)3.50, 200, "H4", pcare);
+				Product coke = productDAO.create("Coca-cola 1.5 lt", (float)1.99, 50, "B3", beverages);
+				Product pepsi = productDAO.create("Pepsi 2 lt", (float)2.49, 40, "B3", beverages);
+				Product phone = productDAO.create("Xiaomi Redmi Note 10 Pro 6+64GB", (float)299.99, 5, "C2", electronics);
+				Product soap = productDAO.create("Liquid soap 500 ml", (float)3.50, 200, "H4", pcare);
 
 				session.getTransaction().commit();
 				session.beginTransaction();
@@ -76,12 +77,16 @@ public class LoadInitialData {
 				
 				roleSet = new HashSet<>();
 				roleSet.add(admin);
+				roleSet.add(employee);
 				roleSet.add(user);
 				User lbianchi = userDAO.create("Luca", "Bianchi", "lucabianchi@gmail.com", "lucabianchi", true);
 				lbianchi.setRoles(roleSet);
 				
-				session.getTransaction().commit();
-				session.beginTransaction();
+				roleSet = new HashSet<>();
+				roleSet.add(employee);
+				roleSet.add(user);
+				User gneri = userDAO.create("Giorgia", "Neri", "giorgianeri@gmail.com", "giorgianeri", true);
+				gneri.setRoles(roleSet);
 				
 				session.getTransaction().commit();
 				session.beginTransaction();
@@ -92,6 +97,9 @@ public class LoadInitialData {
 				
 				favoriteDAO.add(lbianchi, eggs);
 				favoriteDAO.add(lbianchi, phone);
+				
+				favoriteDAO.add(gneri, eggs2);
+				favoriteDAO.add(gneri, soap);
 				
 				session.getTransaction().commit();
 			}
