@@ -16,7 +16,7 @@ capitalizeFirstLetter(${tempProduct.productType.typeName});
 </script>
  <div class="container">
   <div class="col-md-offset-1 col-md-10"><br/>
-   <h2>Manage Products</h2>
+   <h2><i class="bi bi-cart"></i> Manage Products</h2>
    <hr />
 
    <input type="button" value="Add Product" onclick="window.location.href='add'; return false;" class="btn btn-primary" />

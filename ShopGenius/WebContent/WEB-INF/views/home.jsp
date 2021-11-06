@@ -31,7 +31,14 @@
 		</div>
 	</div>
 </c:if>
-<h2 class="mt-5 text-center">or browse through your <a href="/ShopGenius/favorites" style="text-decoration: none;"><i class="bi bi-star-fill"></i> Favorites</a></h2>
+<c:choose>
+	<c:when test="${role eq 'anonymous'}">
+		<h3 class="mt-5 text-center"><a href="/ShopGenius/login" style="text-decoration: none;">Login</a> or <a href="/ShopGenius/user/showForm" style="text-decoration: none;">Register</a> to browse through your favorites</h3>
+	</c:when>
+	<c:otherwise>
+		<h2 class="mt-5 text-center">or browse through your <a href="/ShopGenius/favorites" style="text-decoration: none;"><i class="bi bi-star-fill"></i> Favorites</a></h2>
+	</c:otherwise>
+</c:choose>
 </div>
 </body>
 </html>

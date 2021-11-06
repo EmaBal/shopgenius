@@ -11,7 +11,8 @@ capitalizeFirstLetter(${product.productType.typeName});
  <div class="container">
   <div><br/>
    <h2>${product.name}</h2>
-	   <c:if test="${role ne 'anonymous'}">
+   <c:choose>
+	   <c:when test="${role ne 'anonymous'}">
 		     <c:choose>
 				<c:when test="${isProductFav eq true}">
 					<form action="favorites/delete">
@@ -31,7 +32,11 @@ capitalizeFirstLetter(${product.productType.typeName});
 				</form>
 			</c:otherwise>
 			</c:choose>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+		<a href="/ShopGenius/login" style="text-decoration: none;">Login</a> or <a href="/ShopGenius/user/showForm" style="text-decoration: none;">Register</a> to add to your favorites
+		</c:otherwise>
+		</c:choose>
    <hr />
     
      <table class="table table-striped table-bordered">

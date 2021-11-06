@@ -10,7 +10,7 @@ capitalizeFirstLetter(${favorite.name});
 <body>
  <div class="container">
   <div class="col-md-offset-1 col-md-10"><br/>
-   <h2><i class="bi bi-star-fill"></i> Favorites</h2>
+   <h2><i class="bi bi-star"></i> Favorites</h2>
 	<hr />
 	<c:choose>
 	  <c:when test="${empty favorites}">

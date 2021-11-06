@@ -45,7 +45,14 @@
          <a href="${updateLink}" style="text-decoration: none">Update</a>
         </td>
         <td>
-         <a href="${deleteLink}" style="text-decoration: none" onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">Delete</a>
+        <c:choose>
+        <c:when test="${currentUserEmail eq tempUser.email}">
+        	Delete
+        </c:when>
+        <c:otherwise>
+			 <a href="${deleteLink}" style="text-decoration: none" onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">Delete</a>        
+        </c:otherwise>
+        </c:choose>
         </td>
 
        </tr>

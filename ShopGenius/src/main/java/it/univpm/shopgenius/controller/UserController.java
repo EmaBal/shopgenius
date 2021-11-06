@@ -46,6 +46,7 @@ public class UserController {
 		    	model.addAttribute("current_firstName", "anonymous");
 		    	model.addAttribute("current_lastName", "anonymous");
 			}
+		model.addAttribute("currentUserEmail",utilities.getCurrentUserName());
         return "tiles_list_users";
     }
 
@@ -78,7 +79,7 @@ public class UserController {
     		@RequestParam(value = "makeEmp", required = false) boolean makeEmp, 
     		@RequestParam(value = "updateRole", required = false, defaultValue="") String updateRole,
     		@RequestParam(value = "oldUserEmail", required=false) String oldUserEmail,
-    		@RequestParam("roleName") String roleName,
+    		@RequestParam(value="roleName", required=false, defaultValue="user") String roleName,
     		Model model) {
     	if (br.hasErrors()) {
         	model.addAttribute("role",utilities.getCurrentUserMajorRole());
@@ -118,7 +119,25 @@ public class UserController {
 		    			model.addAttribute("userId", user.getId());
 		    			return "redirect:/user/updateForm";
 		    		} catch (Exception e) {
-		    			userService.saveUser(user);
+//		    			userService.saveUser(user);
+//			    		userService.update(user);
+		    			user.setRoles(userService.getUser(user.getId()).getRoles());
+		    			user.setEnabled(true);
+			    		if (updateRole.equals("admin") && roleName.equals("employee")) {
+				    		userService.removeRole(user, "admin");
+			    		} else if (updateRole.equals("admin") && roleName.equals("user")) {
+				    		userService.removeRole(user, "admin");
+				    		userService.removeRole(user, "employee");
+			    		} else if (updateRole.equals("employee") && roleName.equals("user")) {
+				    		userService.removeRole(user, "employee");
+			    		} else if (updateRole.equals("employee") && roleName.equals("admin")) {
+				    		userService.addRole(user, "admin");
+			    		} else if (updateRole.equals("user") && roleName.equals("admin")) {
+			    			userService.addRole(user, "employee");
+				    		userService.addRole(user, "admin");
+			    		} else if (updateRole.equals("user") && roleName.equals("employee")) {
+			    			userService.addRole(user, "employee");
+			    		}
 			    		userService.update(user);
 		    		}
 	    		}
@@ -145,7 +164,7 @@ public class UserController {
     }
 
     @GetMapping("/updateForm")
-    public String showFormForUpdate(@RequestParam("userId") int id, Model model) {
+    public String showFormForUpdate(@RequestParam("userId") int id, @RequestParam(value = "error", required = false) String error, Model model) {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
         List<String> currentUserRoleNamesList = new ArrayList<String>();
@@ -173,6 +192,7 @@ public class UserController {
 			roleNamesList.add(role.getName());
 		}
 		model.addAttribute("roleNamesList", roleNamesList);
+		model.addAttribute("error", error);
         return "tiles_register";
     }
 
