@@ -8,12 +8,7 @@ function capitalizeFirstLetter(string) {
 capitalizeFirstLetter(${tempProduct.name});
 capitalizeFirstLetter(${tempProduct.productType.typeName});
 </script>
-
 <body>
-<script>
-
-
-</script>
  <div class="container">
   <div class="col-md-offset-1 col-md-10"><br/>
    <h2><i class="bi bi-cart"></i> Manage Products</h2>
@@ -21,7 +16,7 @@ capitalizeFirstLetter(${tempProduct.productType.typeName});
 
    <input type="button" value="Add Product" onclick="window.location.href='add'; return false;" class="btn btn-primary" />
     <br/><br/>
-     <table class="table table-striped table-bordered text-center">
+     <table id="productsTable" class="table table-striped table-bordered text-center">
       <tr>
        <th>Name</th>
        <th>Price</th>
@@ -31,15 +26,12 @@ capitalizeFirstLetter(${tempProduct.productType.typeName});
        <th colspan="2" class="mx-auto">Action</th>
       </tr>
 
-      <!-- loop over and print our customers -->
       <c:forEach var="tempProduct" items="${products}">
 
-       <!-- construct an "update" link with customer id -->
        <c:url var="updateLink" value="/product/update">
         <c:param name="productId" value="${tempProduct.id}" />
        </c:url>
 
-       <!-- construct an "delete" link with customer id -->
        <c:url var="deleteLink" value="/product/delete">
         <c:param name="productId" value="${tempProduct.id}" />
        </c:url>
@@ -49,24 +41,20 @@ capitalizeFirstLetter(${tempProduct.productType.typeName});
 	    </c:url>
 
        <tr>
-        <%-- <td class="text-capitalize">${tempProduct.name}</td> --%>
         <td><a href="${viewDetails}" style="text-decoration: none">${tempProduct.name}</a></td>
         <td>${tempProduct.price} &#8364;</td>
         <td>${tempProduct.quantity}</td>
         <td>${tempProduct.productType.typeName}</td>
         <td>${tempProduct.locationDetail}</td>
-
         
-         	<td><a href="${updateLink}" style="text-decoration: none">Update</a></td>
-         <td><a href="${deleteLink}" style="text-decoration: none" onclick="if (!(confirm('Are you sure you want to delete this product?'))) return false">Delete</a></td>
+        <td><a href="${updateLink}" style="text-decoration: none">Update</a></td>
+        <td><a href="${deleteLink}" style="text-decoration: none" onclick="if (!(confirm('Are you sure you want to delete this product?'))) return false">Delete</a></td>
         
-
        </tr>
 
       </c:forEach>
 
      </table>
-
     </div>
    </div>
 </body>

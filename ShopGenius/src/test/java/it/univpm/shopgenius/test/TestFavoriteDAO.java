@@ -1,11 +1,7 @@
 package it.univpm.shopgenius.test;
 
 import static org.assertj.core.api.Assertions.fail;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,11 +18,8 @@ import it.univpm.shopgenius.model.entities.User;
 
 class TestFavoriteDAO {
 
-
 	private AnnotationConfigApplicationContext ctx;
 	private FavoriteDAO favoriteDAO;
-	private Product product;
-	private User user;
 	private SessionFactory sf;
 	
 	@BeforeAll
@@ -95,9 +88,7 @@ class TestFavoriteDAO {
 
 	@Test
 	void testAddProductToUser() {
-		/**
-		 * We test that it is possible to create two users with same name and surname
-		 */
+		
 		Session s = sf.openSession();
 
 		favoriteDAO.setSession(s);
@@ -131,15 +122,11 @@ class TestFavoriteDAO {
 	
 	@Test
 	void testRemoveProductFromUser() {
-		/**
-		 * We test that it is possible to create two users with same name and surname
-		 */
 		
 		Session s = sf.openSession();
 
 		favoriteDAO.setSession(s);
 
-		
 		s.beginTransaction();
 		User user = new User();
 		user.setFirstName("firstname");
@@ -169,10 +156,7 @@ class TestFavoriteDAO {
 	}
 	
 	@Test
-	void testRemoveNonExistingProductDoesntCauseError() {
-		/**
-		 * We test that it is possible to create two users with same name and surname
-		 */
+	void testRemoveNonExistingFavoriteDoesntCauseError() {
 		
 		Session s = sf.openSession();
 
@@ -204,10 +188,8 @@ class TestFavoriteDAO {
 	}
 	
 	@Test
-	void testAddEProductToUser() {
-		/**
-		 * We test that it is possible to create two users with same name and surname
-		 */
+	void testAddProductToUserTwiceDoesntCauseError() {
+
 		Session s = sf.openSession();
 		
 		favoriteDAO.setSession(s);
@@ -237,7 +219,7 @@ class TestFavoriteDAO {
 			s.getTransaction().commit();
 			assertTrue(true);
 		} catch (Exception e) {
-			fail("Unexpected exception adding favorite product to user: " + e.getMessage());
+			fail("Unexpected exception adding favorite product to user twice: " + e.getMessage());
 		}
 		
 		assertEquals(user.getProducts().size(), 1);

@@ -20,11 +20,6 @@ public class UserDAOImpl extends DefaultDao implements UserDAO {
 
 	private PasswordEncoder passwordEncoder;
 	
-//	@Override
-//	public User findUserByUsername(String email) {
-//		return this.getSession().get(User.class, email);
-//	}
-	
 	@Override
 	public User create(String first_name, String last_name, String email, String password, boolean isEnabled) {
 		if (first_name == null || first_name.length() == 0 || last_name == null || last_name.length() == 0 || email == null || email.length() == 0 || password == null || password.length() == 0)

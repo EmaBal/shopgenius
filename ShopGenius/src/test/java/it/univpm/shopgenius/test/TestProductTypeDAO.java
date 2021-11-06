@@ -1,8 +1,6 @@
 package it.univpm.shopgenius.test;
 
 import static org.assertj.core.api.Assertions.fail;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
@@ -17,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import it.univpm.shopgenius.model.dao.ProductTypeDAO;
-import it.univpm.shopgenius.model.entities.Product;
 import it.univpm.shopgenius.model.entities.ProductType;
 
 class TestProductTypeDAO {
@@ -92,10 +89,7 @@ class TestProductTypeDAO {
 	}
 	
 	@Test
-	void testNoProductsAtBeginning() {
-		/**
-		 * Check that there are no users when the application loads
-		 */
+	void testNoProductTypesAtBeginning() {
 
 		Session s = sf.openSession();
 
@@ -111,9 +105,7 @@ class TestProductTypeDAO {
 	
 	@Test
 	void testAllCreatedAreFound() {
-		/**
-		 * Generate n users, find all of them
-		 */
+
 		int n = 10;
 
 		Session s = sf.openSession();
@@ -135,9 +127,7 @@ class TestProductTypeDAO {
 
 	@Test
 	void testProductMustHaveAName() {
-		/**
-		 * A user cannot have empty first name
-		 */
+
 		Session s = sf.openSession();
 		
 		assertThrows(Exception.class, () ->  { productTypeDAO.create(""); } );
@@ -145,10 +135,7 @@ class TestProductTypeDAO {
 	
 	@Test
 	void testAllCreatedAreFoundByName() {
-		/**
-		 * Generate n users, find all of them by ID, check the found user is the same instance that was 
-		 * returned by the productTypeDAO.create(...) method
-		 */
+
 		int n = 10;
 
 		Session s = sf.openSession();
@@ -170,6 +157,7 @@ class TestProductTypeDAO {
 	
 	@Test
 	void testProductTypeNotFoundByName() {
+		
 		Session s = sf.openSession();
 
 		productTypeDAO.setSession(s);
@@ -193,7 +181,7 @@ class TestProductTypeDAO {
 
 		productTypeDAO.setSession(s);
 		
-		// 1. create a user
+		// 1. create a product type
 		s.beginTransaction();
 
 		assertEquals(0, productTypeDAO.getTypes().size());
@@ -202,7 +190,7 @@ class TestProductTypeDAO {
 		
 		s.getTransaction().commit();
 		
-		// 2. delete the user
+		// 2. delete the product type
 		s.beginTransaction();
 		
 		assertEquals(1, productTypeDAO.getTypes().size());
@@ -211,7 +199,7 @@ class TestProductTypeDAO {
 		
 		s.getTransaction().commit();
 		
-		// 3. check no more users
+		// 3. check no more product types
 		assertEquals(0, productTypeDAO.getTypes().size());
 	}
 }

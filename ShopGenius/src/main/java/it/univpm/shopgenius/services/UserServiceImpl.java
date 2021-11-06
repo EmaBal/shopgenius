@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Transactional(readOnly = true)
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
 		User user = userDAO.findUserByEmail(email);
         List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
         return buildUserForAuthentication(user, authorities);

@@ -26,13 +26,6 @@ public class Utilities {
 		List<String> authList = new ArrayList<String>();
 		for (SimpleGrantedAuthority r: auth) {
 			authList.add(r.getAuthority());
-//			if (r.getAuthority().equals("admin")) {
-//				return "admin";
-//			} else if (r.getAuthority().equals("employee")) {
-//				return "employee";
-//				} else if (r.getAuthority().equals("user")) {
-//						return "user";
-//					}
 		}
 		if (authList.contains("admin")) {
 			return "admin";

@@ -1,11 +1,7 @@
 package it.univpm.shopgenius.test;
 
 import static org.assertj.core.api.Assertions.fail;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import it.univpm.shopgenius.model.dao.RoleDAO;
-import it.univpm.shopgenius.model.entities.Product;
 import it.univpm.shopgenius.model.entities.Role;
 
 class TestRoleDAO {
@@ -92,9 +87,9 @@ class TestRoleDAO {
 	}
 
 	@Test
-	void testProductMustHaveAName() {
+	void testRoleMustHaveAName() {
 		/**
-		 * A user cannot have empty first name
+		 * A role cannot have empty first name
 		 */
 		Session s = sf.openSession();
 		
@@ -104,10 +99,7 @@ class TestRoleDAO {
 	
 	@Test
 	void testAllCreatedAreFoundByName() {
-		/**
-		 * Generate n users, find all of them by ID, check the found user is the same instance that was 
-		 * returned by the roleDAO.create(...) method
-		 */
+
 		int n = 10;
 
 		Session s = sf.openSession();
@@ -129,6 +121,7 @@ class TestRoleDAO {
 	
 	@Test
 	void testUserNotFoundByName() {
+		
 		Session s = sf.openSession();
 
 		roleDAO.setSession(s);
@@ -147,19 +140,20 @@ class TestRoleDAO {
 	}
 	
 	@Test
-	void testUserIsCreatedAndDeleted() {
+	void testRoleIsCreatedAndDeleted() {
+		
 		Session s = sf.openSession();
 
 		roleDAO.setSession(s);
 		
-		// 1. create a user
+		// 1. create a role
 		s.beginTransaction();
 		
 		Role inserted = roleDAO.create("role");
 		
 		s.getTransaction().commit();
 		
-		// 2. delete the user
+		// 2. delete the role
 		s.beginTransaction();
 		
 		assertEquals(inserted, roleDAO.getRole(inserted.getName()));
@@ -168,7 +162,7 @@ class TestRoleDAO {
 		
 		s.getTransaction().commit();
 		
-		// 3. check no more users
+		// 3. check no more roles
 		s.beginTransaction();
 		try {
 			roleDAO.getRole(inserted.getName());

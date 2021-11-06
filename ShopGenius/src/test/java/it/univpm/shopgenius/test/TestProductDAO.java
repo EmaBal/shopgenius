@@ -1,7 +1,6 @@
 package it.univpm.shopgenius.test;
 
 import static org.assertj.core.api.Assertions.fail;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -92,9 +91,6 @@ class TestProductDAO {
 	
 	@Test
 	void testCreateProductDuplicateNames() {
-		/**
-		 * We test that it is possible to create two singers with same name and surname
-		 */
 		
 		Session s = sf.openSession();
 
@@ -114,9 +110,6 @@ class TestProductDAO {
 	
 	@Test
 	void testNoProductsAtBeginning() {
-		/**
-		 * Check that there are no users when the application loads
-		 */
 
 		Session s = sf.openSession();
 
@@ -133,7 +126,7 @@ class TestProductDAO {
 	@Test
 	void testAllCreatedAreFound() {
 		/**
-		 * Generate n users, find all of them
+		 * Generate n products, find all of them
 		 */
 		int n = 10;
 
@@ -156,9 +149,7 @@ class TestProductDAO {
 
 	@Test
 	void testProductMustHaveAName() {
-		/**
-		 * A user cannot have empty first name
-		 */
+		
 		Session s = sf.openSession();
 		
 		assertThrows(Exception.class, () ->  { productDAO.create("", 1, 1, "A2", null); } );
@@ -166,9 +157,7 @@ class TestProductDAO {
 	
 	@Test
 	void testProductMustHaveAZeroOrMorePrice() {
-		/**
-		 * A user cannot have empty first name
-		 */
+
 		Session s = sf.openSession();
 		
 		assertThrows(Exception.class, () ->  { productDAO.create("prod", -2, 1, "A2", null); } );
@@ -176,9 +165,7 @@ class TestProductDAO {
 	
 	@Test
 	void testProductMustHaveAZeroOrMoreQuantity() {
-		/**
-		 * A user cannot have empty first name
-		 */
+
 		Session s = sf.openSession();
 		
 		assertThrows(Exception.class, () ->  { productDAO.create("prod", 1, -2, "A2", null); } );
@@ -186,9 +173,7 @@ class TestProductDAO {
 	
 	@Test
 	void testProductMustHaveALocationDetail() {
-		/**
-		 * A user cannot have empty first name
-		 */
+
 		Session s = sf.openSession();
 		
 		assertThrows(Exception.class, () ->  { productDAO.create("prod", 1, 1, "", null); } );
@@ -196,10 +181,7 @@ class TestProductDAO {
 	
 	@Test
 	void testAllCreatedAreFoundById() {
-		/**
-		 * Generate n users, find all of them by ID, check the found user is the same instance that was 
-		 * returned by the productDAO.create(...) method
-		 */
+
 		int n = 10;
 
 		Session s = sf.openSession();
@@ -220,7 +202,8 @@ class TestProductDAO {
 	}
 	
 	@Test
-	void testUserNotFoundById() {
+	void testProductNotFoundById() {
+		
 		Session s = sf.openSession();
 
 		productDAO.setSession(s);
@@ -236,12 +219,12 @@ class TestProductDAO {
 	}
 	
 	@Test
-	void testUserIsCreatedAndDeleted() {
+	void testProductIsCreatedAndDeleted() {
 		Session s = sf.openSession();
 
 		productDAO.setSession(s);
 		
-		// 1. create a user
+		// 1. create a product
 		s.beginTransaction();
 
 		assertEquals(0, productDAO.getProducts().size());
@@ -250,7 +233,7 @@ class TestProductDAO {
 		
 		s.getTransaction().commit();
 		
-		// 2. delete the user
+		// 2. delete the product
 		s.beginTransaction();
 		
 		assertEquals(1, productDAO.getProducts().size());
@@ -259,15 +242,13 @@ class TestProductDAO {
 		
 		s.getTransaction().commit();
 		
-		// 3. check no more users
+		// 3. check no more products
 		assertEquals(0, productDAO.getProducts().size());
 	}
 	
 	@Test
 	void testDeleteNonExistingProductDoesNotCauseError() {
-		/**
-		 * A user that does not exist can be deleted without begin noticed to the callee
-		 */
+
 		Session s = sf.openSession();
 
 		productDAO.setSession(s);
@@ -287,7 +268,7 @@ class TestProductDAO {
 			
 			assertTrue(true);
 		} catch (Exception e) {
-			fail("Unexpected exception when deleting fake user");
+			fail("Unexpected exception when deleting fake product");
 		}
 	}
 }

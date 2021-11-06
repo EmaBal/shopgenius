@@ -83,6 +83,7 @@ public class UserController {
     		Model model) {
     	if (br.hasErrors()) {
         	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+        	model.addAttribute("update_role", updateRole);
     		try {
     	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
     	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
@@ -124,8 +125,6 @@ public class UserController {
 		    			model.addAttribute("userId", user.getId());
 		    			return "redirect:/user/updateForm";
 		    		} catch (Exception e) {
-//		    			userService.saveUser(user);
-//			    		userService.update(user);
 		    			user.setRoles(userService.getUser(user.getId()).getRoles());
 		    			user.setEnabled(true);
 			    		if (updateRole.equals("admin") && roleName.equals("employee")) {
@@ -160,7 +159,6 @@ public class UserController {
 	    			if (roleName.equals("admin")) {
 	    				userService.addRole(user, "admin");
 	    			}
-//	    			userService.saveUser(user);
 		    		userService.update(user);
 	    		}
 	    	}

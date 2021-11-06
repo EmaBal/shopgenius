@@ -65,7 +65,7 @@ public class LoadInitialData {
 				Product coke = productDAO.create("Coca-cola 1.5 lt", (float)1.99, 50, "B3", beverages);
 				Product pepsi = productDAO.create("Pepsi 2 lt", (float)2.49, 40, "B3", beverages);
 				Product phone = productDAO.create("Xiaomi Redmi Note 10 Pro 6+64GB", (float)299.99, 0, "C2", electronics);
-				Product phone2 = productDAO.create("Xiaomi Redmi Note 10 4+128GB", (float)211, 3, "C3", electronics);
+				Product phone2 = productDAO.create("Xiaomi Redmi Note 10 4+128GB", 211, 3, "C3", electronics);
 				Product soap = productDAO.create("Liquid soap 500 ml", (float)3.50, 200, "H4", pcare);
 
 				session.getTransaction().commit();

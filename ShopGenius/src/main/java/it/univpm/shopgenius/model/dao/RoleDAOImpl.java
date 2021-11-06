@@ -11,7 +11,6 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import it.univpm.shopgenius.model.entities.Role;
-import it.univpm.shopgenius.model.entities.User;
 
 @Repository
 public class RoleDAOImpl extends DefaultDao implements RoleDAO {

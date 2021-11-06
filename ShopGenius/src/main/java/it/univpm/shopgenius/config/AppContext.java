@@ -55,10 +55,7 @@ public class AppContext {
 		hibernateProp.put("hibernate.jdbc.batch_size", 10);
 		hibernateProp.put("hibernate.jdbc.fetch_size", 50);
 	    hibernateProp.put("hibernate.enable_lazy_load_no_trans", true);
-//	    hibernateProp.put("hibernate.hbm2ddl.auto", "create");
 		hibernateProp.put("javax.persistence.schema-generation.database.action", "update");
-//		hibernateProp.put("javax.persistence.sql-load-script-source", "/data.sql");
-//		hibernateProp.put("hibernate.hbm2ddl.import_files", "/data.sql");
 		return hibernateProp;
 	}
 

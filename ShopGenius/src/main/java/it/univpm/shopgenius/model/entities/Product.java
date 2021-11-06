@@ -130,16 +130,6 @@ public class Product {
 		this.users = users;
 	}
 	
-//	public void addUser(User u) {
-//		this.users.add(u);
-//		u.getProducts().add(this);
-//	}
-//	
-//	public void removeUser(User u) {
-//		this.users.remove(u);
-//		u.getProducts().remove(this);
-//	}
-	
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", quantity=" + quantity + ", productType="

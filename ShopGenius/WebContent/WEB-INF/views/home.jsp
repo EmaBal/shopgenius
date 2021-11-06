@@ -11,8 +11,7 @@
 	});
 </script>
 <body>
-<%-- <div style="background-image: url('${pageContext.request.contextPath}/resources/img/background_cover3.jpg'); height: 100vh; background-size: contain; background-repeat: no-repeat;"> --%>
-<img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/background_cover5.jpg"/>
+<img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/home_banner.jpg"/>
 <div class="container">
 <div class="row">
 <h2 class="mt-5 text-center"><i class="bi bi-search"></i> Search Product</h2>

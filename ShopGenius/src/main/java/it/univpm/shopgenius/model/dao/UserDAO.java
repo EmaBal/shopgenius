@@ -18,8 +18,6 @@ public interface UserDAO {
 
     public void deleteUser(int id);
 
-//	User findUserByUsername(String email);
-
 	User create(String first_name, String last_name, String email, String password, boolean isEnabled);
 
 	User update(User user);

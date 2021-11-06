@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.univpm.shopgenius.model.entities.Product;
-import it.univpm.shopgenius.model.entities.ProductType;
 import it.univpm.shopgenius.model.entities.User;
 import it.univpm.shopgenius.services.FavoriteService;
 import it.univpm.shopgenius.services.ProductService;
@@ -70,7 +69,6 @@ public class ProductController {
 	    	else
 	    		model.addAttribute("isProductFav", false);
 		}
-//    	ProductType productType = product.getProductType();
     	model.addAttribute("role",currentUserRole);
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
@@ -80,8 +78,6 @@ public class ProductController {
 		    	model.addAttribute("current_lastName", "anonymous");
 			}
     	model.addAttribute(product);
-//    	String productTypeName = productType.getTypeName();
-//    	model.addAttribute("productType", productTypeName);
     	return "tiles_product";
     }
     
@@ -124,6 +120,7 @@ public class ProductController {
     	if (br.hasErrors()) {
     		model.addAttribute("productTypes", productTypeService.getTypes());
         	model.addAttribute("role",utilities.getCurrentUserMajorRole());
+        	model.addAttribute("isUpdating", true);
     		try {
     	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
     	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());

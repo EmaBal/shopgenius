@@ -45,7 +45,7 @@
       <input type="hidden" name="updateRole" value="${update_role}"/>
       <div class="mb-3">
     <c:choose>
-	    <c:when test="${empty user.email}">
+	    <c:when test="${empty update_role}">
 	    	<label for="role" class="form-label">Role</label>
 	    </c:when>
 	    <c:otherwise>

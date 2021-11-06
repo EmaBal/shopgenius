@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <body>
  <div class="container">
   <div class="col-md-offset-1 col-md-10"><br/>
@@ -10,7 +9,7 @@
 
    <input type="button" value="Add User" onclick="window.location.href='showForm'; return false;" class="btn btn-primary" />
     <br/><br/>
-     <table id="sortTable" class="table table-striped table-bordered text-center">
+     <table id="usersTable" class="table table-striped table-bordered text-center">
       <tr>
        <th>First name</th>
        <th>Last name</th>
@@ -19,15 +18,12 @@
        <th colspan="2" class="mx-auto">Action</th>
       </tr>
 
-      <!-- loop over and print our customers -->
       <c:forEach var="tempUser" items="${users}">
 
-       <!-- construct an "update" link with customer id -->
        <c:url var="updateLink" value="/user/updateForm">
         <c:param name="userId" value="${tempUser.id}" />
        </c:url>
 
-       <!-- construct an "delete" link with customer id -->
        <c:url var="deleteLink" value="/user/delete">
         <c:param name="userId" value="${tempUser.id}" />
        </c:url>
@@ -64,7 +60,6 @@
     </div>
    </div>
    <script>
-$('#sortTable').DataTable();
 </script>
 </body>
 </html>

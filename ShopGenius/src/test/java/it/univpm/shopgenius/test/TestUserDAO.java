@@ -93,7 +93,7 @@ class TestUserDAO {
 	@Test
 	void testCreateUserDuplicateNames() {
 		/**
-		 * We test that it is possible to create two users with same name and surname
+		 * We test that it is possible to create two users with same first name and last name
 		 */
 		
 		Session s = sf.openSession();
@@ -112,7 +112,7 @@ class TestUserDAO {
 			s.getTransaction().commit();
 			assertTrue(true);
 		} catch (Exception e) {
-			fail("Unexpected exception creating singer with duplicate name: " + e.getMessage());
+			fail("Unexpected exception creating user with duplicate first name and last name: " + e.getMessage());
 		}
 	}
 	
@@ -143,18 +143,16 @@ class TestUserDAO {
 		Session s = sf.openSession();
 
 		userDAO.setSession(s);
-
-		
 		
 		for (int i = 0; i < n; i++) {
 			s.beginTransaction();
 			userDAO.create("firstname" + i, "lastname" + i, "email" + i, "password" + i, true);
 			s.getTransaction().commit();
 			s.beginTransaction();
-			List<User> allSingers = userDAO.getUsers();
+			List<User> allUsers = userDAO.getUsers();
 			s.getTransaction().commit();
 			
-			assertEquals(allSingers.size(), i + 1);
+			assertEquals(allUsers.size(), i + 1);
 			
 		}
 	}
@@ -170,7 +168,7 @@ class TestUserDAO {
 	}
 	
 	@Test
-	void testUserMustHaveALasttName() {
+	void testUserMustHaveALastName() {
 		/**
 		 * A user cannot have empty last name 
 		 */
@@ -210,8 +208,6 @@ class TestUserDAO {
 		Session s = sf.openSession();
 
 		userDAO.setSession(s);
-
-		
 		
 		for (int i = 0; i < n; i++) {
 			s.beginTransaction();
@@ -234,7 +230,6 @@ class TestUserDAO {
 
 		userDAO.setSession(s);
 
-		
 		s.beginTransaction();
 		User inserted = userDAO.create("firsname", "lastname", "email", "password", true);
 		s.getTransaction().commit();
@@ -250,7 +245,6 @@ class TestUserDAO {
 		Session s = sf.openSession();
 
 		userDAO.setSession(s);
-
 		
 		s.beginTransaction();
 		User inserted = userDAO.create("firsname", "lastname", "email", "password", true);
@@ -342,9 +336,7 @@ class TestUserDAO {
 	
 	@Test
 	void testDeleteNonExistingUserDoesNotCauseError() {
-		/**
-		 * A user that does not exist can be deleted without begin noticed to the callee
-		 */
+
 		Session s = sf.openSession();
 
 		userDAO.setSession(s);
