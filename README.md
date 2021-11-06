@@ -8,16 +8,16 @@ In particolare, l'app ha diverse funzionalità, divise in base al livello di aut
   - permette di cercare i prodotti presenti, visionandone diversi dettagli, tra cui il costo, la quantità disponibile attualmente in negozio e la posizione (come combinazione di reparto + coppia lettera numero all'interno del reparto) (si presuppone che il supermercato si sia precedentemente attrezzato per creare la griglia con lettere e numeri per ogni reparto)
 - per il livello cliente (user):
   - tutte le funzionalità precedenti
-  - permette di inserire (ed eliminare) i prodotti tramite una personale lista di preferiti
+  - permette di creare una lista di prodotti preferiti
 - per il livello dipendente (employee):
   - tutte le funzionalità precedenti
-  - gestione completa (inserimento, modifica, eliminazione) dei prodotti presenti nel database
+  - gestione completa (inserimento, modifica, cancellazione) dei prodotti presenti nel database
 - per il livello amministratore (admin):
   - tutte le funzionalità precedenti
-  - gestione completa (inserimento, modifica, eliminazione) degli account presenti nel database
+  - gestione completa (inserimento, modifica, cancellazione) degli account presenti nel database
   - possibilità di cambiare ruolo agli account presenti
 
-È inoltre presente la possibilità di effettuare la registrazione.
+È inoltre presente la possibilità di effettuare la registrazione (come cliente).
 
 ## Installazione
 1. Clonare la repository ed importarla in Eclipse
