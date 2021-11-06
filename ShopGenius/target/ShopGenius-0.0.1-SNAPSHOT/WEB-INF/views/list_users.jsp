@@ -5,7 +5,7 @@
 <body>
  <div class="container">
   <div class="col-md-offset-1 col-md-10"><br/>
-   <h2>Manage Users</h2>
+   <h2><i class="bi bi-people"></i> Manage Users</h2>
    <hr />
 
    <input type="button" value="Add User" onclick="window.location.href='showForm'; return false;" class="btn btn-primary" />
@@ -47,7 +47,7 @@
         <td>
         <c:choose>
         <c:when test="${currentUserEmail eq tempUser.email}">
-        	Delete
+        	<p style="color:grey; display:inline">Delete</p>
         </c:when>
         <c:otherwise>
 			 <a href="${deleteLink}" style="text-decoration: none" onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">Delete</a>        

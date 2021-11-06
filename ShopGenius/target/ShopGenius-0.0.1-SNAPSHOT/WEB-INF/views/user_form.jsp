@@ -52,6 +52,7 @@
 	    	<label for="role" class="form-label">Role <i>(current: ${update_role})</i></label>
 	    </c:otherwise>
     </c:choose>
+     <div class="col-md-9">
     <select class="form-select text-capitalize" name="roleName" id="roleName">
 				<c:forEach var="r" items="${roleNamesList}">
 				<c:choose>
@@ -71,6 +72,7 @@
 				</c:choose>
 	        	</c:forEach>
 			</select>
+			</div>
   </div>
       </c:if>
       <c:if test="${not empty error}">

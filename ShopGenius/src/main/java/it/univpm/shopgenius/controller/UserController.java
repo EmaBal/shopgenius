@@ -90,6 +90,11 @@ public class UserController {
     		    	model.addAttribute("current_firstName", "anonymous");
     		    	model.addAttribute("current_lastName", "anonymous");
     			}
+    		List<String> roleNamesList = new ArrayList<String>();
+    		for (Role role: roleDAO.getRoles()) {
+    			roleNamesList.add(role.getName());
+    		}
+    		model.addAttribute("roleNamesList", roleNamesList);
     		return "tiles_register";
     	} else {
 	    	if (updateRole != null && !updateRole.equals("") ) {

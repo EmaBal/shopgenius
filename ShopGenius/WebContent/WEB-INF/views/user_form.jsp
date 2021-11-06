@@ -45,13 +45,14 @@
       <input type="hidden" name="updateRole" value="${update_role}"/>
       <div class="mb-3">
     <c:choose>
-	    <c:when test="${empty user.email}">
+	    <c:when test="${empty update_role}">
 	    	<label for="role" class="form-label">Role</label>
 	    </c:when>
 	    <c:otherwise>
 	    	<label for="role" class="form-label">Role <i>(current: ${update_role})</i></label>
 	    </c:otherwise>
     </c:choose>
+     <div class="col-md-9">
     <select class="form-select text-capitalize" name="roleName" id="roleName">
 				<c:forEach var="r" items="${roleNamesList}">
 				<c:choose>
@@ -71,6 +72,7 @@
 				</c:choose>
 	        	</c:forEach>
 			</select>
+			</div>
   </div>
       </c:if>
       <c:if test="${not empty error}">

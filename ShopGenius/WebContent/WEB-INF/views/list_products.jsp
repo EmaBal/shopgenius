@@ -25,9 +25,9 @@ capitalizeFirstLetter(${tempProduct.productType.typeName});
       <tr>
        <th>Name</th>
        <th>Price</th>
-       <th>Available<br>quantity</th>
-       <th>Type</th>
-       <th>Location<br>detail</th>
+       <th>Available quantity</th>
+       <th>Product type/Department</th>
+       <th>Location detail</th>
        <th colspan="2" class="mx-auto">Action</th>
       </tr>
 

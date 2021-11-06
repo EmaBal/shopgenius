@@ -57,7 +57,7 @@ capitalizeFirstLetter(${product.productType.typeName});
       </c:choose>
       </tr>
       <tr>
-       <td><b>Product type</b></td>
+       <td><b>Product type/Department</b></td>
        <td>${product.productType.typeName}</td>
       </tr>
       <tr>
