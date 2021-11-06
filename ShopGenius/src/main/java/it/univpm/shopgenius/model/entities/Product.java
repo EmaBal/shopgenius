@@ -41,7 +41,7 @@ public class Product {
     private int id;
 	
 	@NotNull
-	@Size(min=1, max=30, message="Invalid character number (must be between 1 and 30)")
+	@Size(min=1, max=60, message="Invalid character number (must be between 1 and 60)")
 	@Column(name = "name", nullable = false, unique=true)
 	private String name;
 	
@@ -60,7 +60,7 @@ public class Product {
 	private ProductType productType;
 	
 	@NotNull
-	@Size(min=1, max=10, message="Invalid character number (must be between 1 and 30)")
+	@Size(min=1, max=10, message="Invalid character number (must be between 1 and 10)")
 	@Column(name = "location_detail", nullable = false)
 	private String locationDetail;
 	

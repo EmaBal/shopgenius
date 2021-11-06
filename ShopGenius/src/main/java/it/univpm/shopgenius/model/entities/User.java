@@ -38,7 +38,7 @@ public class User {
     private String lastName;
 
 	@NotNull
-	@Size(min=1, max=30, message="Invalid character number (must be between 1 and 30)")
+	@Size(min=1, max=40, message="Invalid character number (must be between 1 and 40)")
     @Column(name = "email", unique=true, nullable = false)
     private String email;
     
