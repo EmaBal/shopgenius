@@ -24,9 +24,9 @@ In particolare, l'app ha diverse funzionalità, divise in base al livello di aut
 2. Inserire le credenziali per l'accesso al db all'interno della classe it.univpm.shopgenius.config.AppContext.java (di default sono username: "root", password: "")
    - ds.setUsername("...");
    - ds.setPassword("...");
-3. predisporre un server Apache Tomcat 9.0 (con Java JDK 1.8)
+3. Predisporre un server Apache Tomcat 9.0 (con Java JDK 1.8)
 4. Verificare nel Build Path del progetto di star utilizzando Java JDK 1.8
-5. Aggiungere il progetto al server (dalla scheda server --> tasto destro sul server --> "Add and Remove...")
+5. Aggiungere il progetto al server (dalla scheda Server --> tasto destro sul server --> "Add and Remove...")
 6. Sul progetto:
    - Run as --> Maven clean
    - Run as --> Maven install
