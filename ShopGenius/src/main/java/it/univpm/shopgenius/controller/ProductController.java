@@ -87,7 +87,6 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("productTypes", productTypeService.getTypes());
         model.addAttribute("error", error);
-    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
 	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
@@ -104,7 +103,6 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("productTypes", productTypeService.getTypes());
         model.addAttribute("isUpdating", true);
-    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
 	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
@@ -119,7 +117,6 @@ public class ProductController {
     public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult br, @RequestParam("typeName") String typeName, @RequestParam(value="isUpdating", required = false, defaultValue = "false") boolean isUpdating, @RequestParam(value="oldProductName", required=false) String oldProductName, Model model) {
     	if (br.hasErrors()) {
     		model.addAttribute("productTypes", productTypeService.getTypes());
-        	model.addAttribute("role",utilities.getCurrentUserMajorRole());
         	model.addAttribute("isUpdating", true);
     		try {
     	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
@@ -166,7 +163,6 @@ public class ProductController {
     public String manageProducts(Model model) {
         List <Product> products = productService.getProducts();
         model.addAttribute("products", products);
-    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
 	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());

@@ -10,6 +10,12 @@
 		});
 	});
 </script>
+
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<sec:authorize access="hasRole('admin')" var="isAdmin" />
+<sec:authorize access="hasRole('employee')" var="isEmployee" />
+<sec:authorize access="hasRole('user')" var="isUser" />
+<sec:authorize access="isAuthenticated()" var="isAuth" />
 <body>
 <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/home_banner.jpg"/>
 <div class="container">
@@ -31,7 +37,7 @@
 	</div>
 </c:if>
 <c:choose>
-	<c:when test="${role eq 'anonymous'}">
+	<c:when test="${!isAuth}">
 		<h3 class="mt-5 text-center"><a href="/ShopGenius/login" style="text-decoration: none;">Login</a> or <a href="/ShopGenius/user/showForm" style="text-decoration: none;">Register</a> to browse through your favorites</h3>
 	</c:when>
 	<c:otherwise>

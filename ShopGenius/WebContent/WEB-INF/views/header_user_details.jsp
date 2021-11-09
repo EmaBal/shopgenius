@@ -6,6 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<sec:authorize access="hasAuthority('admin')" var="isAdmin" />
+<sec:authorize access="hasAuthority('employee')" var="isEmployee" />
+<sec:authorize access="hasAuthority('user')" var="isUser" />
+<sec:authorize access="isAuthenticated()" var="isAuth" />
 </head>
 <body>
 
@@ -17,36 +22,24 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <c:choose>
-        <c:when test="${role eq 'admin'}">
+        <c:if test="${isAdmin}">
         <li class="nav-item">
           <a class="nav-link" href="/ShopGenius/user/list">Manage Users</a>
         </li>
+        </c:if>
+        <c:if test="${isEmployee || isAdmin}">
         <li class="nav-item">
           <a class="nav-link" href="/ShopGenius/product/list">Manage Products</a>
         </li>
+        </c:if>
+        <c:if test="${isAuth}">
         <li class="nav-item">
           <a class="nav-link" href="/ShopGenius/favorites">Favorites</a>
         </li>
-        </c:when>
-        <c:when test="${role eq 'user'}">
-        <li class="nav-item">
-          <a class="nav-link" href="/ShopGenius/favorites">Favorites</a>
-        </li>
-        </c:when>
-        <c:when test="${role eq 'employee'}">
-        <li class="nav-item">
-          <a class="nav-link" href="/ShopGenius/product/list">Manage Products</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/ShopGenius/favorites">Favorites</a>
-        </li>
-        
-        </c:when>
-        </c:choose>
+        </c:if>
       </ul>
       <c:choose>
-      	<c:when test="${role eq 'anonymous'}">
+      	<c:when test="${!isAuth}">
 		    <div class="btn-group">
 			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
 				<i class="bi bi-person-circle"> Login/Register</i>

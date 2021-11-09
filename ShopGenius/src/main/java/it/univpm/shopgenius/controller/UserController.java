@@ -38,7 +38,6 @@ public class UserController {
         List <User> users = userService.getUsers();
         model.addAttribute("users", users);
         
-    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
 	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
@@ -52,7 +51,6 @@ public class UserController {
 
     @GetMapping("/showForm")
     public String showFormForAdd(@RequestParam(value = "error", required = false) String error, Model model) {
-    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
 	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
@@ -82,7 +80,6 @@ public class UserController {
     		@RequestParam(value="roleName", required=false, defaultValue="user") String roleName,
     		Model model) {
     	if (br.hasErrors()) {
-        	model.addAttribute("role",utilities.getCurrentUserMajorRole());
         	model.addAttribute("update_role", updateRole);
     		try {
     	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
@@ -181,7 +178,6 @@ public class UserController {
     	} else if (currentUserRoleNamesList.contains("user")) {
     		model.addAttribute("update_role", "user");
     	}
-    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
 	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
@@ -208,7 +204,6 @@ public class UserController {
     @GetMapping("details")
     public String userDetails(Model model) {
     	model.addAttribute("user", userService.findUserByEmail(utilities.getCurrentUserName()));
-    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
 	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());

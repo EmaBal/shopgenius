@@ -47,7 +47,6 @@ public class FavoriteController {
 		Set<Product> favorites = user.getProducts();
 		model.addAttribute("favorites", favorites);
 		
-    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
 	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());

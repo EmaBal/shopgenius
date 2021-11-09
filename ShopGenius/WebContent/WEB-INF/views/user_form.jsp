@@ -2,6 +2,9 @@
  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<sec:authorize access="hasAuthority('admin')" var="isAdmin" />
 <body>
  <div class="container">
   <div class="col-md-offset-2 col-md-7"><br/>
@@ -41,7 +44,7 @@
         <form:input type="password" path="password" cssClass="form-control" />  <form:errors path="password" cssStyle="color: #ff0000;"/>
        </div>
       </div>
-      <c:if test="${role eq 'admin'}">
+      <c:if test="${isAdmin}">
       <input type="hidden" name="updateRole" value="${update_role}"/>
       <div class="mb-3">
     <c:choose>

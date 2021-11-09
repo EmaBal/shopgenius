@@ -29,7 +29,6 @@ public class SecurityController
         
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("appName", appName);
-    	model.addAttribute("role",utilities.getCurrentUserMajorRole());
 		try {
 	    	model.addAttribute("current_firstName", userService.findUserByEmail(utilities.getCurrentUserName()).getFirstName());
 	    	model.addAttribute("current_lastName", userService.findUserByEmail(utilities.getCurrentUserName()).getLastName());
