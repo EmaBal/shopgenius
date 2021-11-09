@@ -11,12 +11,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
-<sec:authorize access="hasRole('admin')" var="isAdmin" />
-<sec:authorize access="hasRole('employee')" var="isEmployee" />
-<sec:authorize access="hasRole('user')" var="isUser" />
-<sec:authorize access="isAuthenticated()" var="isAuth" />
-
 <title><tiles:insertAttribute name="title"/></title>    
 </head>
 <body>
